@@ -28,12 +28,13 @@ be arbitrary functions, and \(\varepsilon_{1}, \dots, \varepsilon_{n}
 \text{Rademacher}\) with \(\left\{ \varepsilon_{i} \right\}_{i = 1}^{n} \indep
 \left\{ Z_{i} \right\}_{i = 1}^{n}\).
 Then
-\begin{equation*}
-  \beta_{n} (y) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
+\begin{equation}
+  \beta_{n} (y / 2) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
   \right\|_{\mathcal{F}} > y \right) \leq 2 \Pr^{\ast} \left( 4 \left\| \sum_{i
   = 1}^{n} \varepsilon_{i} \left( Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}
   > y \right),
-\end{equation*}
+  \label{eqn--vdvw23-lem--2-3-7}
+\end{equation}
 for every \(y > 0\) and \(\beta_{n} (y) \leq \inf_{f \in \mathcal{F}} \Pr \left(
 \left| \sum_{i = 1}^{n} Z_{i} (f) \right| < y / 2 \right)\).
 In particular this is true for independent mean-zero finite variance processes,
@@ -44,6 +45,19 @@ and \(\beta_{n} (y) = 1 - \frac{4}{y^{2}} \sup_{f \in \mathcal{F}} \sum_{i =
 Later on, we will combine \Cref{lem--vdvw23-lem-2-3-7} with some other
 inequalities that can be found in proofs of results in
 \citet{1984pollardConvergenceStochasticProcesses}.
+
+\begin{remark}
+\label{rem--vdvw23-lem--2-3-7}
+\begin{equation}
+  \beta_{n} (\alpha) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
+  \right\|_{\mathcal{F}} > y \right) \leq 2 \Pr^{\ast} \left( 4 \left\| \sum_{i
+  = 1}^{n} \varepsilon_{i} \left( Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}
+  > \frac{y - \alpha}{2}  \right),
+  \label{eqn--vdvw23-lem--2-3-7-adj}
+\end{equation}
+for every \(y > 0\) and \(\beta_{n} (y) \leq \inf_{f \in \mathcal{F}} \Pr \left(
+\left| \sum_{i = 1}^{n} Z_{i} (f) \right| < y / 2 \right)\).
+\end{remark}
 
 %%% Local Variables:
 %%% mode: LaTeX
