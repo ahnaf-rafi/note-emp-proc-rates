@@ -1,0 +1,53 @@
+%! TEX root = ../note-emp-proc-rates.tex
+
+\section{Useful preliminary probability inequalities}
+
+Here, it will be useful to define the symmetrized empirical process:
+\begin{equation*}
+  \mathbb{P}^{\circ} f \equiv \mathbb{P}^{\circ}_{n} f := \frac{1}{n} \sum_{i =
+  1}^{n} \varepsilon_{i} f \left( X_{i} \right),
+\end{equation*}
+where \(\varepsilon_{1}, \dots, \varepsilon_{n} \overset{\mathrm{iid}}{\sim}
+\text{Rademacher}\) with \(\left\{ \varepsilon_{i} \right\}_{i = 1}^{n} \indep
+\left\{ X_{i} \right\}_{i = 1}^{n}\).
+
+The following is a useful result from
+\citet{2023vandervaartWeakConvergenceEmpirical}, where it is stated as Lemma
+2.3.7.
+In the original statement, the final stipulation is made for iid processes, but
+the adjustment made here is minor and clearly holds true as well by a simple
+application of Chebyshev's inequality.
+
+\begin{lemma}[\citet{2023vandervaartWeakConvergenceEmpirical}, Lemma 2.3.7,
+p. 176]
+\label{lem--vdvw23-lem-2-3-7}
+Let \(Z_{1}, \dots, Z_{n}\) be arbitrary independent \(\mathcal{F}\)-indexed
+stochastic processes, \(\mu_{1}, \dots, \mu_{n} : \mathcal{F} \to \mathbb{R}\)
+be arbitrary functions, and \(\varepsilon_{1}, \dots, \varepsilon_{n}
+\overset{\mathrm{iid}}{\sim}
+\text{Rademacher}\) with \(\left\{ \varepsilon_{i} \right\}_{i = 1}^{n} \indep
+\left\{ Z_{i} \right\}_{i = 1}^{n}\).
+Then
+\begin{equation*}
+  \beta_{n} (y) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
+  \right\|_{\mathcal{F}} > y \right) \leq 2 \Pr^{\ast} \left( 4 \left\| \sum_{i
+  = 1}^{n} \varepsilon_{i} \left( Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}
+  > y \right),
+\end{equation*}
+for every \(y > 0\) and \(\beta_{n} (y) \leq \inf_{f \in \mathcal{F}} \Pr \left(
+\left| \sum_{i = 1}^{n} Z_{i} (f) \right| < y / 2 \right)\).
+In particular this is true for independent mean-zero finite variance processes,
+and \(\beta_{n} (y) = 1 - \frac{4}{y^{2}} \sup_{f \in \mathcal{F}} \sum_{i =
+1}^{n} \Var \left[ Z_{i} (f) \right]\).
+\end{lemma}
+
+Later on, we will combine \Cref{lem--vdvw23-lem-2-3-7} with some other
+inequalities that can be found in proofs of results in
+\citet{1984pollardConvergenceStochasticProcesses}.
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../note-emp-proc-rates"
+%%% End:
+
+% LocalWords:  cdf ecdf
