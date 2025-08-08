@@ -1,5 +1,113 @@
 %! TEX root = ../note-emp-proc-rates.tex
 
+\section{Useful Symmetrization Results}
+
+\begin{lemma}[\citet{2023vandervaartWeakConvergenceEmpirical}, Lemma 1.2.6, p.
+10]
+\label{lem--vdvw23-lem-1-2-6}
+Let \(T\) be an arbitrary real-valued map defined on a product probability
+space.
+Then \(\E_{\ast} T \leq \E_{1, \ast} \E_{2, \ast} T \leq \E_{1}^{\ast}
+\E_{2}^{\ast} T \leq \E^{\ast} T\).
+\end{lemma}
+
+\begin{lemma}
+\label{lem--symm-1}
+Let \(Z_{1}, \dots, Z_{n}\) be arbitrary independent \(\mathcal{F}\)-indexed
+real-valued stochastic processes and for \(\alpha > 0\), denote
+\(\beta_{n} (\alpha) = \inf_{f \in \mathcal{F}} \Pr \left\{ \left|
+\sum_{i = 1}^{n} Z_{i} \right| \leq \alpha \right\}\).
+Let \(\left( Y_{1}, \dots, Y_{n} \right)\) be an independent copy of \(\left(
+Z_{1}, \dots, Z_{n} \right)\).
+For any \(y > \alpha > 0\),
+\begin{equation}
+  \beta_{n} (\alpha) \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} Z_{i}
+  \right\|_{\mathcal{F}} > y \right\} \leq
+  \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+  \label{eqn--symm-1}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--symm-1}]
+For convenience, denote \(\mathbf{Z} = \left( Z_{1}, \dots, Z_{n} \right)\)
+and \(\mathbf{Y} = \left( Y_{1}, \dots, Y_{n} \right)\).
+Denote coordinate-wise outer expectations and probabilities by
+\(\E_{\mathbf{Z}}^{\ast}\), \(\Pr_{\mathbf{Z}}^{\ast}\)
+\(\E_{\mathbf{Y}}^{\ast}\), and \(\Pr_{\mathbf{Y}}^{\ast}\).
+
+Clearly \(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
+\right\} = \left\{ \exists f \in \mathcal{F} : \left| \sum_{i = 1}^{n} Z_{i} (f)
+\right| > y \right\}\).
+Thus on \(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
+\right\}\), we can select \(f_{\ast} (\mathbf{Z})\) such that \(\left| \sum_{i =
+1}^{n} Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| > y\);
+let
+\(f_{\ast} (\cdot)\) be equal to an arbitrary member of \(\mathcal{F}\) on
+\(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} \leq y
+\right\}\).
+Under the hypothesis
+\(\left| \sum_{i = 1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right|
+\leq \alpha\),
+\begin{equation*}
+  \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}}
+  \geq
+  \left| \sum_{i = 1}^{n} \left( Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) -
+  Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right) \right| \geq
+  \left| \sum_{i = 1}^{n} Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right|
+  - \left| \sum_{i = 1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| >
+  y - \alpha.
+\end{equation*}
+Therefore,
+\begin{equation*}
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
+  \right\} \cdot \mathbf{1} \left\{ \left| \sum_{i = 1}^{n} Y_{i} \left(
+  f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{equation*}
+Fix \(\mathbf{Z}\) and take outer expectations with respect to
+\(\mathbf{Y}\)
+\begin{equation}
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
+  \right\} \cdot \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{n} Y_{i}
+  \left( f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
+  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i}
+  \right) \right\|_{\mathcal{F}} > y - \alpha \right\}.
+  \label{eqn--symm-1-1}
+\end{equation}
+Note that for fixed \(\mathbf{Z}\),
+\begin{equation*}
+  \beta_{n} (\alpha) \leq \Pr_{\mathbf{Y}} \left\{ \left| \sum_{i =
+  1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\}
+  = \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{n} Y_{i} \left(
+  f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\},
+\end{equation*}
+where the last equality follows since \(\sum_{i = 1}^{n} Y_{i} (f)\) is
+measurable for fixed \(f\).
+Combine the last display with \eqref{eqn--symm-1-1}:
+\begin{equation*}
+  \beta_{n} (\alpha) \cdot \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i}
+  \right\|_{\mathcal{F}} > y \right\} \leq
+  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i}
+  \right) \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{equation*}
+Now
+\eqref{eqn--symm-1} follows from integrating out \(\mathbf{Z}\) and using
+\Cref{lem--vdvw23-lem-1-2-6}:
+\begin{align*}
+  \beta_{n} (\alpha) \cdot \Pr_{\mathbf{Z}}^{\ast} \left\{ \left\| \sum_{i =
+  1}^{n} Z_{i} \right\|_{\mathcal{F}} > y \right\} \leq & \,
+  \E_{\mathbf{Z}}^{\ast} \left[ \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i
+  = 1}^{n} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}} > y - \alpha
+  \right\} \right] \\
+  \leq
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{align*}
+\end{proof}
+
+
 %%% Local Variables:
 %%% mode: LaTeX
 %%% TeX-master: "../note-emp-proc-rates"
