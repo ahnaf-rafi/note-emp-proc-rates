@@ -1,0 +1,299 @@
+%! TEX root = ../note-emp-proc-rates.tex
+
+\section{Preliminary probability inequalities}
+\label{sec--prob-ineq-prelim}
+
+Our first main result is the following bound.
+
+\begin{theorem}
+\label{thm--ep-prob-ineq-no-chain}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\) and let \(x, t > 0\) satisfy
+\begin{equation*}
+  x \geq \frac{1}{\sqrt{8 n}} \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n} \sum_{i
+  = 1}^{n} \Var \left[ f \left( X_{i} \right) \right]} \quad \text{and} \quad
+  t \geq \kappa_{2} \left( \overline{P}, \mathcal{F} \right).
+\end{equation*}
+Then
+\begin{equation}
+  \begin{gathered}
+    \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+    \right\|_{\mathcal{F}} > 8 x \right\} \leq
+    \min \left\{ 1, \E \left[ \phi \left( x, t; \mathbb{P}, \mathcal{F} \right)
+    \right] \right\}, \quad \text{where}
+    \\
+    \phi \left( x, t; \mathbb{P}, \mathcal{F} \right) =
+    8 \exp \left( - \frac{n x^{2}}{128 t^{2}} \right) N \left( x,
+    \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) +
+    16 N \left( t, \mathscr{L}_{2} (\mathbb{P}), \mathcal{F} \right) \exp \left(
+    - n t^{2} \right).
+  \end{gathered}
+  \label{eqn--ep-prob-ineq-no-chain}
+\end{equation}
+\end{theorem}
+
+In \eqref{eqn--ep-prob-ineq-no-chain}, the trivial upper bound of one comes from
+the fact that \(\Pr^{\ast}\) is an outer probability.
+We prove the bound due to the function \(\phi\) in
+\Cref{thm--ep-prob-ineq-no-chain} as follows.
+First, we bound \(\Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+\right\|_{\mathcal{F}} > y \right\}\) by a tail outer probability for a
+symmetrized empirical process.
+Then, we bound the outer probability ``conditional'' on symmetrization variables
+by an squared-exponential decay.
+This is the first summand in \(\phi\) in \eqref{eqn--ep-prob-ineq-no-chain}.
+The squared-exponential decay function in the second step depends on the largest
+empirical second moment \(\kappa_{2} (\mathbb{P}, \mathcal{F})\).
+The second summand entering \(\phi\) in \eqref{eqn--ep-prob-ineq-no-chain}
+results from a bound on deviation probabilities for
+\(\kappa_{2} (\mathbb{P}, \mathcal{F}) / \kappa_{2} (\overline{P},
+\mathcal{F})\).
+
+The symmetrized empirical process is
+\begin{equation}
+  \mathbb{P}^{\circ} f \equiv \mathbb{P}^{\circ}_{n} f := \frac{1}{n} \sum_{i =
+  1}^{n} U_{i} f \left( X_{i} \right),
+  % \label{eqn--ep-sym}
+\end{equation}
+where \(U_{1}, \dots, U_{n} \overset{\mathrm{iid}}{\sim} \text{Rademacher}\)
+with \(\mathbf{U} := \left( U_{1}, \dots, U_{n} \right)\) independent to
+\(\mathbf{X} := \left( X_{1}, \dots, X_{n} \right)\).
+
+\begin{remark}
+% \label{rem--coordinate-wise-expectation}
+For random elements \(V_{1}\) and \(V_{2}\) and an arbitrary
+(not necessarily measurable) map \(T \left( V_{1}, V_{2} \right)\),
+\(\Pr_{V_{1}, \ast} \left[ T \left( V_{1}, V_{2} \right) \right]\) and
+\(\Pr_{V_{1}}^{\ast} \left[ T \left( V_{1}, V_{2} \right) \right]\) are the
+inner and outer probabilities respectively over \(V_{1}\), taking \(V_{2}\) as
+fixed.
+Analogous notation applies to inner and outer expectations.
+\end{remark}
+
+\begin{lemma}
+\label{lem--ep-norm-sym-bound}
+For \(y \geq \sqrt{\frac{8}{n}} \cdot \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n}
+\sum_{i =
+1}^{n} \Var \left[ f \left( X_{i} \right) \right]}\),
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  y \right\} \leq 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > \frac{y}{4} \right\}.
+  \label{eqn--ep-norm-sym-bound}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-norm-sym-bound}]
+\Cref{lem--ep-norm-sym-bound} is an application of \Cref{lem--symm-2}, which is
+a slightly generalized variant of Lemma 2.3.7 in
+\citet[p. 176]{2023vandervaartWeakConvergenceEmpirical}.
+For details of the application here, see
+\Cref{sec--prf--lem--ep-norm-sym-bound}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--ep-sym-unif-hoeffding-cond}
+Suppose \(\mathcal{F}\) satisfies \(\kappa_{2}^{2} \left( \mathbb{P},
+\mathcal{F} \right) < \infty\) almost surely (e.g. \(\mathcal{F}\) has an
+envelope in \(\mathscr{L}_{2} (P)\)).
+For \(t > 0\),
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq \min \left\{ 1, 2 \exp \left( -
+  \frac{n t^{2}}{8 \kappa_{2}^{2} (\mathbb{P}, \mathcal{F})} \right) N \left( t
+  / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) \right\}.
+  \label{eqn--ep-sym-unif-hoeffding-cond}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-sym-unif-hoeffding-cond}]
+See \Cref{sec--prf--lem--ep-sym-unif-hoeffding-cond}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--sqrt-ep-2nd-moment-sup-pbound}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For \(t > 0\) such that \(t \geq \kappa_{2} \left( \overline{P}, \mathcal{F}
+\right)\),
+\begin{equation}
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \sqrt{\mathbb{P} \left[ f^{2}
+  \right]} > 8 t \right\} \leq \E \left[\min \left\{ 1, 4 N \left( t,
+  \mathscr{L}_{2} (\mathbb{P}), \mathcal{F} \right) \exp \left( - n t^{2}
+  \right) \right\} \right].
+  \label{eqn--sqrt-ep-2nd-moment-sup-pbound}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--sqrt-ep-2nd-moment-sup-pbound}]
+See
+\Cref{sec--prf--lem--sqrt-ep-2nd-moment-sup-pbound}
+\end{proof}
+
+We can now proceed to the proof of \Cref{thm--ep-prob-ineq-no-chain}.
+
+\begin{proof}[Proof of \Cref{thm--ep-prob-ineq-no-chain}]
+By \eqref{eqn--ep-norm-sym-bound} in \Cref{lem--ep-norm-sym-bound}, for \(x \geq
+\frac{1}{\sqrt{8 n}} \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n}
+\sum_{i = 1}^{n} \Var \left[ f \left( X_{i} \right) \right]}\) and \(t > 0\),
+\begin{align*}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  8 x \right\} \leq 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x \right\} \leq
+  & \, 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} >
+  2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64 t^{2} \right\} \\
+  & + 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} > 2
+  x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) > 64 t^{2} \right\}.
+\end{align*}
+Hence,
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  8 x \right\} \leq 4 \left( \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64
+  t^{2} \right\} + \Pr^{\ast} \left\{ \kappa_{2} (\mathbb{P}, \mathcal{F}) >
+  8 t \right\} \right).
+  \label{eqn--ep-unif-improved-no-chain-1}
+\end{equation}
+By \eqref{eqn--ep-sym-unif-hoeffding-cond} in
+\Cref{lem--ep-sym-unif-hoeffding-cond},
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64
+  t^{2} \right\} \leq 2 \exp \left( - \frac{n x^{2}}{128 t^{2}} \right) N \left(
+  x, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right).
+  \label{eqn--ep-unif-improved-no-chain-2}
+\end{equation}
+Then \eqref{eqn--ep-prob-ineq-no-chain} follows from combining
+\eqref{eqn--ep-unif-improved-no-chain-2} with
+\eqref{eqn--ep-unif-improved-no-chain-1} and using
+\eqref{eqn--sqrt-ep-2nd-moment-sup-pbound} in
+\Cref{lem--sqrt-ep-2nd-moment-sup-pbound}.
+\end{proof}
+
+\section{A crude use of \texorpdfstring{%
+\Cref{lem--ep-sym-unif-hoeffding-cond}}{Lemma
+\ref{lem--ep-sym-unif-hoeffding-cond}}}
+
+From \Cref{lem--ep-sym-unif-hoeffding-cond}, we can immediately derive a crude
+probability bound for \(\|\mathbb{P} - \overline{P} \|_{\mathcal{F}}\)
+when \(\mathcal{F}\) is uniformly bounded, e.g. if \(\sup_{f \in \mathcal{F}, x
+\in \mathcal{X}} |f (x)| \leq 1\).
+
+\begin{lemma}
+\label{lem--ep-sym-unif-hoeffding}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For \(t > 0\),
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq \min \left\{ 1, 2 \exp \left( - n
+  t^{2} / 8 \right) N \left( t / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F}
+  \right) \right\}.
+  \label{eqn--ep-sym-unif-hoeffding-cond-crude}
+\end{equation}
+Therefore,
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} > t
+  \right\} \leq \E \left[ \min \left\{ 1, 2 \exp \left( - n t^{2} / 8 \right) N
+  \left( t / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) \right\}
+  \right].
+  \label{eqn--ep-sym-unif-hoeffding}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-sym-unif-hoeffding}]
+Note that \eqref{eqn--ep-sym-unif-hoeffding} follows from
+\eqref{eqn--ep-sym-unif-hoeffding-cond-crude}.
+Furthermore, \(\kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 1\) since functions
+in \(\mathcal{F}\) are uniformly bounded in magnitude by \(1\).
+Thus \eqref{eqn--ep-sym-unif-hoeffding-cond-crude} follows from
+\eqref{eqn--ep-sym-unif-hoeffding-cond} in
+\Cref{lem--ep-sym-unif-hoeffding-cond}.
+\end{proof}
+
+We lose some generality by directly using the uniform sup norm bound.
+In particular, the bounds \eqref{eqn--ep-sym-unif-hoeffding-cond-crude} and
+\eqref{eqn--ep-sym-unif-hoeffding} are far from tight if \(\mathcal{F}\) has
+``small'' second moments, i.e. if \(\kappa_{2} (\mathbb{P}, \mathcal{F})\) and
+\(\kappa_{2} (\overline{P}, \mathcal{F})\) are small.
+In contrast, \Cref{thm--ep-prob-ineq-no-chain} accounts for cases of ``small''
+and ``large'' \(\kappa_{2} \left( \mathbb{P}, \mathcal{F} \right)\) and
+\(\kappa_{2} \left( \overline{P}, \mathcal{F} \right)\).
+
+\section{Implications for VC classes}
+
+We will use the following result on covering numbers for Vapnik-{\u C}ervonenkis
+(VC)
+classes of functions.
+
+\begin{lemma}[\citet{2023vandervaartWeakConvergenceEmpirical}, Theorem 2.6.7,
+p. 206]
+\label{lem--VC-coverin-number}
+Let \(\mathcal{F}\) be a class of functions with a positive envelope \(F\) with
+VC-dimension \(V (\mathcal{F}) < \infty\).
+There is a universal constant \(K \in (0, \infty)\) such that for any \(r \in
+[1, \infty)\), any probability measure \(Q\) with \(\|F\|_{Q, r} > 0\) and any
+\(0 < \varepsilon < 1\),
+\begin{equation}
+  N \left( \varepsilon \|F\|_{Q, r}, \mathscr{L}_{r} (Q), \mathcal{F} \right)
+  \leq K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left( \frac{1}{\varepsilon}
+  \right)^{r V (\mathcal{F})}.
+  \label{eqn--VC-coverin-number}
+\end{equation}
+\end{lemma}
+
+\begin{theorem}
+\label{thm--ep-prob-ineq-no-chain-VC}
+Let \(\mathcal{F}\) be a VC class of functions with VC dimension \(V
+(\mathcal{F}) < \infty\) and \(x, t > 0\) satisfying
+\begin{equation*}
+  \sup_{f \in \mathcal{F}, x \in
+  \mathcal{X}} |f (x)| \leq 1, \quad x \geq \frac{1}{\sqrt{8 n}} \sup_{f \in
+  \mathcal{F}} \sqrt{\frac{1}{n} \sum_{i = 1}^{n} \Var \left[ f \left( X_{i}
+\right) \right]} \quad \text{and} \quad
+  t \geq \kappa_{2} \left( \overline{P}, \mathcal{F} \right).
+\end{equation*}
+Then
+\begin{equation}
+  \begin{split}
+    & \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+    \right\|_{\mathcal{F}} > 8 x \right\} \\
+    \leq
+    & \, 16 K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left[ \exp \left\{ -
+    \frac{n x^{2}}{128 t^{2}} + V (\mathcal{F}) \log (1 / x) \right\} + \exp
+    \left\{ - n t^{2} + 2 V (\mathcal{F}) \log (1 / t) \right\} \right].
+  \end{split}
+  \label{eqn--ep-prob-ineq-no-chain-VC}
+\end{equation}
+\end{theorem}
+
+\begin{proof}[Proof of \Cref{thm--ep-prob-ineq-no-chain-VC}]
+By \eqref{eqn--ep-prob-ineq-no-chain} in \Cref{thm--ep-prob-ineq-no-chain},
+\begin{equation*}
+  \begin{split}
+    \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+    \right\|_{\mathcal{F}} > 8 x \right\} \leq
+    & \, 8 \exp \left( - \frac{n x^{2}}{128 t^{2}} \right) \E \left[ N \left( x,
+    \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) \right] \\
+    & + 16 \exp \left( - n t^{2} \right) \E \left[ N \left( t, \mathscr{L}_{2}
+    (\mathbb{P}), \mathcal{F} \right) \right].
+  \end{split}
+\end{equation*}
+By \eqref{eqn--VC-coverin-number} in \Cref{lem--VC-coverin-number},
+\begin{equation*}
+  \begin{split}
+    \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+    \right\|_{\mathcal{F}} > 8 x \right\} \leq
+    & \, 8 K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \exp \left( - \frac{n
+    x^{2}}{128 t^{2}} + V (\mathcal{F}) \log (1 / x) \right) \\
+    & + 16 K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \exp \left( - n t^{2} + 2
+    V (\mathcal{F}) \log (1 / t) \right).
+  \end{split}
+\end{equation*}
+Now bound 8 by 16 to get \eqref{eqn--ep-prob-ineq-no-chain-VC}.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../note-emp-proc-rates"
+%%% End:

@@ -5,7 +5,7 @@
 Let \(n \in \mathbb{N}\), \((\Omega, \mathscr{A}, \Pr)\) be an underlying
 probability space and \((\mathcal{X}, \mathscr{X})\) be a measurable space.
 Let \(Q\) be a signed measure on \((\mathcal{X}, \mathscr{X})\),
-and define the following:
+and define
 \begin{equation*}
   \begin{split}
   Q g :=
@@ -35,25 +35,42 @@ For \(\mathcal{F} \subseteq \mathscr{L}_{1} (\overline{P})\),
 the empirical process is the map
 \(f \mapsto \left( \mathbb{P} - \overline{P} \right) [f] := \frac{1}{n} \sum_{i
 = 1}^{n} \left( f \left( X_{i} \right) - P_{i} f \right)\).
-It will be useful for later results to define the supremum second moment of
-\(\mathcal{F}\): for a probability measure \(Q\), define
-\begin{equation}
+
+Our main goal here is to provide upper bounds for the tail outer probability
+\(\Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+y \right\}\) as a function of \(y\), \(n\) and \(\mathcal{F}\).
+Dependence on \(\mathcal{F}\) can appear in two ways.
+The probability bounds can depend on the supremum second moment of
+\(\mathcal{F}\):
+\begin{equation*}
   \kappa_{2} (Q, \mathcal{F}) := \sup_{f \in \mathcal{F}} \sqrt{Q \left[
-  f^{2} \right]}.
-  \label{eqn--F-2nd-moment-max}
-\end{equation}
-Finally, our bounds will all depend on a measure of complexity of the class
-\(\mathcal{F}\).
-As in the rest of the empirical process literature, we will mainly use
-covering (and packing) numbers under \(\mathscr{L}_{p}\) norms.
-\Cref{def--Lr-covering-number} provides a definition of this concept.
+  f^{2} \right]} \quad \text{for a positive measure } Q.
+  % \label{eqn--F-2nd-moment-max}
+\end{equation*}
+Furthermore, the bounds will depend on the complexity of \(\mathcal{F}\); as
+in the rest of the empirical process literature, we use covering numbers under
+\(\mathscr{L}_{p}\) norms, see \Cref{def--Lr-covering-number} below.
+Throughout, we will consider the case where functions in \(\mathcal{F}\) are
+uniformly bounded in magnitude by \(1\).
 
 \begin{definition}[\(\mathscr{L}_{p} (Q)\)-covering numbers]
 \label{def--Lr-covering-number}
-Let \(Q\) be a measure on \(\left( \mathcal{X}, \mathscr{X} \right)\) and let
-\(\mathscr{L}_{p} (Q)\) denote the space of \(Q\)-\(p\)-integrable functions for
-\(p \in [1, \infty)\) and the space of \(Q\)-essentially bounded functions for
-\(p = \infty\).
+Let \(Q\) be a positive measure on \((\mathcal{X}, \mathscr{X})\) and denote
+\begin{equation*}
+  \begin{split}
+    \|f\|_{p, Q} =
+    & \, \begin{cases}
+      \left( Q \left[ |f|^{p} \right] \right)^{\frac{1}{p}}
+      & \text{if } 1 \leq
+      p < \infty, \\
+      \inf \{t > 0 : |f| \leq t \ Q\text{-a.e.}\}
+      & \text{if } p = \infty,
+    \end{cases} \\
+    \mathscr{L}_{p} (Q) =
+    & \, \left\{ f \text{ measurable such that }  \|f\|_{p, Q} < \infty
+    \right\}.
+  \end{split}
+\end{equation*}
 For \(\mathcal{F} \subseteq \mathscr{L}_{p} (Q)\) and \(\varepsilon > 0\),
 define
 \begin{equation*}
@@ -64,15 +81,9 @@ define
 \end{equation*}
 \end{definition}
 
-Our main goal here is to provide upper bounds for the tail outer probability
-\(\Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
-y \right\}\) as a function of \(y\), \(n\), \(\mathcal{F}\) and
-measures of complexity (i.e. covering numbers) and variability (i.e. suprema of
-second moments and variances) of \(\mathcal{F}\).
-This is considered for the case where functions in \(\mathcal{F}\) are
-themselves uniformly bounded in magnitude by \(1\).
-A second goal is then to explore how these probability bounds can then be used
-to derive rates of convergence.
+Upon characterizing \(\Pr^{\ast} \left\{ \| \mathbb{P} - \overline{P}
+\|_{\mathcal{F}} > y \right\}\), a second goal is then to explore how these
+probability bounds can then be used to derive rates of convergence.
 A tertiary aim will be to characterize how and when the chaining method offers
 an improvement over more crude methods using only covering
 numbers, for both probability inequalities and convergence rate results.
