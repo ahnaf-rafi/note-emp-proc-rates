@@ -1,0 +1,214 @@
+%! TEX root = ../note-emp-proc-rates.tex
+
+\section{Useful Miscellany}
+
+\begin{lemma}[Hoeffding's Inequality]
+\label{lem--hoeffding-ineq}
+Let \(V_{1}, \dots, V_{n}\) be independent random variables such that \(a_{i}
+\leq V_{i} \leq b_{i}\) almost surely for some \(a_{i}, b_{i} \in \mathbb{R}\).
+For all \(t > 0\),
+\begin{equation*}
+  \Pr \left( \left| \sum_{i = 1}^{n} \left( V_{i} - \E \left[ V_{i} \right]
+  \right) \right| \geq t \right) \leq
+  2 \exp \left( - \frac{2 t^{2}}{\sum_{i = 1}^{n} \left( b_{i} -
+  a_{i} \right)^{2}} \right).
+  % \label{eqn--hoeffding-ineq}
+\end{equation*}
+\end{lemma}
+
+\begin{lemma}[Hoeffding's Inequality Special Case]
+\label{lem--hoeffding-sym-special}
+Let \(U_{1}, \dots, U_{n}\) be independent mean zero random variables all
+supported in \([- 1, 1]\).
+For fixed non-stochastic numbers \(g_{1}, \dots, g_{n}\) and any \(t > 0\),
+\begin{equation}
+  \Pr \left\{ \left| \frac{1}{n} \sum_{i = 1}^{n} U_{i} g_{i} \right| > t
+  \right\} \leq 2 \exp \left( - \frac{n^{2} t^{2}}{2 \sum_{i = 1}^{n} g_{i}^{2}}
+  \right) \leq
+  2 \exp \left( - \frac{n t^{2}}{2 \max_{i = 1, \dots, n} g_{i}^{2}} \right)
+  \label{eqn--hoeffding-sym-special}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--hoeffding-ineq,lem--hoeffding-sym-special}]
+Various standard references have proofs of Hoeffding's Inequality.
+For example, the reader can look at Theorem 2 and its proof in \citet[Appendix
+B, pp. 191-192]{1984pollardConvergenceStochasticProcesses}.
+We therefore focus on \Cref{lem--hoeffding-sym-special}.
+The second inequality in \eqref{eqn--hoeffding-sym-special} is a straightforward
+consequence of the first inequality in \eqref{eqn--hoeffding-sym-special}.
+The first inequality in \eqref{eqn--hoeffding-sym-special} follows directly from
+Hoeffding's Inequality, i.e. \Cref{lem--hoeffding-ineq}, by defining
+\(V_{i} = U_{i} g_{i}\), \(a_{i} = - g_{i}\) and \(b_{i} = g_{i}\) and noting
+that \(\E \left[ V_{i} \right] = 0\) by \(\E \left[ U_{i} \right] = 0\).
+\end{proof}
+
+\begin{lemma}
+\label{lem--measure-non-null-positive-weight}
+Let \(Q\) be a measure, \(A\) be a measurable set for which \(Q A > 0\).
+If \(Q \left[ A \cap \left\{ u \leq 0 \right\} \right] = 0\) (i.e.  on \(A\),
+\(u\) is positive \(Q\)-a.e.), then \(Q \left[ u \cdot \mathbf{1}_{A} \right] >
+0\).
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--measure-non-null-positive-weight}]
+Suppose for contradiction that both \(Q \left[ A \cap \left\{ u \leq 0 \right\}
+\right] = 0\), and \(Q \left[ u \cdot \mathbf{1}_{A} \right] \leq 0\).
+By the hypothesis \(Q \left[ A \cap \left\{ u \leq 0 \right\} \right] = 0\),
+\(Q \left[ u \cdot \mathbf{1}_{A} \right] = Q \left[ u \cdot \mathbf{1}_{A \cap
+\{u > 0\}} \right]\).
+By the latter condition, \(Q \left[ A \cap \left\{ u > 0 \right\} \right] = 0\).
+But then \(Q A = Q \left[ A \cap \left\{ u \leq 0 \right\} \right] + Q
+\left[ A \cap \left\{ u > 0 \right\} \right] = 0 + 0 = 0\), which is the desired
+contradiction
+\end{proof}
+
+\begin{lemma}
+\label{lem--mixture-meas-densities-lt-half-null}
+For measures \(Q_{1}, Q_{2}\), let \(Q = Q_{1} + Q_{2}\) and \(h_{\ell} =
+\mathrm{d} Q_{\ell} / \mathrm{d} Q\).
+Furthermore, let \(A = \left\{ h_{1} < 1 / 2 \text{ and } h_{2} < 1 / 2
+\right\}\).
+Then \(Q A = 0\).
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--mixture-meas-densities-lt-half-null}]
+For the purpose of contradiction, suppose \(Q A > 0\).
+Then let \(u_{\ell} = (1 / 2) - h_{\ell}\).
+Clearly \(Q \left[ A \cap \left\{ u_{\ell} \leq 0 \right\} \right] = 0\).
+By \Cref{lem--measure-non-null-positive-weight}, \(Q \left[ u_{\ell} \cdot
+\mathbf{1}_{A} \right] > 0\) and so
+\(Q \left[ h_{\ell} \cdot \mathbf{1}_{A} \right] < \frac{1}{2} Q A\).
+But \(Q \left[ h_{\ell} \cdot \mathbf{1}_{A} \right] = Q_{\ell} A\) by
+definition of \(h_{\ell}\).
+Combined, \(Q_{\ell} A < \frac{1}{2} Q A\) for both \(\ell = 1, 2\).
+But this implies \(Q A = Q_{1} A + Q_{2} A < \frac{1}{2} Q A + \frac{1}{2} Q A =
+Q A\), which is a contradiction.
+\end{proof}
+
+\begin{lemma}
+\label{lem--L2-mixture-meas-approx}
+Let \(Q_{1}, Q_{2}\) be measures, \(Q = Q_{1} + Q_{2}\), \(h_{\ell} =
+\mathrm{d} Q_{\ell} / \mathrm{d} Q\) and \(A_{\ell} = \left\{ h_{\ell} \geq 1 /
+2 \right\}\).
+Let \(f \in \mathscr{L}_{2} \left( Q_{1} \right) \cap \mathscr{L}_{2} \left(
+Q_{2} \right)\) and for \(\delta > 0\), suppose \(\varphi_{\ell} \in
+\mathscr{L}_{2} \left( Q_{\ell} \right)\) satisfy \(Q_{\ell} \left[ \left| f -
+\varphi_{\ell} \right|^{2} \right] \leq \delta^{2}\).
+Define \(g = \varphi_{1} \cdot \mathbf{1}_{A_{1}} + \varphi_{2} \cdot \left( 1 -
+\mathbf{1}_{A_{1}} \right) \cdot \mathbf{1}_{A_{2}}\).
+Then \(Q \left[ \left| f - g \right|^{2} \right] \leq 4 \delta^{2}\).
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--L2-mixture-meas-approx}]
+Let \(A = A_{1}^{c} \cap A_{2}^{c} = \left\{ h_{1} < 1 / 2 \text{ and } h_{2} <
+1 / 2 \right\}\).
+By \Cref{lem--mixture-meas-densities-lt-half-null}, \(Q A = 0\).
+Then \(f = f \cdot \mathbf{1}_{A_{1}} + f \cdot
+\left( 1 - \mathbf{1}_{A_{1}} \right) \cdot \mathbf{1}_{A_{2}} + f \cdot
+\mathbf{1}_{A}\) and so
+\begin{equation*}
+  f - g = \left( f - \varphi_{1} \right) \cdot \mathbf{1}_{A_{1}} + \left( f -
+  \varphi_{2} \right) \cdot \left( 1 - \mathbf{1}_{A_{1}} \right) \cdot
+  \mathbf{1}_{A_{2}} + f \cdot \mathbf{1}_{A}.
+\end{equation*}
+Note that \(\left( 1 - \mathbf{1}_{A_{1}} \right) \cdot \mathbf{1}_{A_{2}} =
+\mathbf{1}_{A_{2} \setminus A_{1}}\).
+Furthermore \(A_{1}\), \(A_{2} \setminus A_{1}\) and \(A\) form a measurable
+partition of the underlying measurable space.
+Therefore,
+\begin{equation*}
+  \left| f - g \right|^{2} = \left| f - \varphi_{1} \right|^{2} \cdot
+  \mathbf{1}_{A_{1}} + \left| f - \varphi_{2} \right|^{2} \cdot \left( 1 -
+  \mathbf{1}_{A_{1}} \right) \cdot \mathbf{1}_{A_{2}} + f^{2} \cdot
+  \mathbf{1}_{A}.
+\end{equation*}
+Therefore by \(Q A = 0\),
+\begin{equation*}
+  Q \left[ \left| f - g \right|^{2} \right] = Q \left[ \left| f - \varphi_{1}
+  \right|^{2} \cdot \mathbf{1}_{A_{1}} \right] + Q \left[ \left| f - \varphi_{2}
+  \right|^{2} \cdot \left( 1 - \mathbf{1}_{A_{1}} \right) \cdot
+  \mathbf{1}_{A_{2}} \right].
+\end{equation*}
+By definition of \(A_{\ell}\), \(\mathbf{1}_{A_{\ell}} \leq 2 h_{\ell} \cdot
+\mathbf{1}_{A_{\ell}} \leq 2 h_{\ell}\) (since \(h_{\ell} \geq 0\) \(Q\)-a.e.).
+Since \(0 \leq 1 - \mathbf{1}_{A_{1}} \leq 1\) everywhere,
+\begin{align*}
+  Q \left[ \left| f - g \right|^{2} \right] \leq
+  & \, 2 \sum_{\ell = 1}^{2} Q \left[ h_{\ell} \left| f - \varphi_{\ell}
+  \right|^{2} \right] = 2 \sum_{\ell = 1}^{2} Q_{\ell} \left[ \left| f -
+  \varphi_{\ell} \right|^{2} \right] \leq 4 \delta^{2}.
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\label{lem--L2-mixture-meas-cover}
+Let \(Q_{1}, Q_{2}\) be measures and \(\mathcal{F} \subseteq \mathscr{L}_{2}
+\left( Q_{1} \right) \cap \mathscr{L}_{2} \left( Q_{2} \right)\).
+For any \(\delta > 0\),
+\begin{equation*}
+  N \left( \sqrt{2} \delta, \mathscr{L}_{2} \left( \left( Q_{1} + Q_{2} \right)
+  / 2 \right), \mathcal{F} \right) \leq N \left( \delta, \mathscr{L}_{2} \left(
+  Q_{1} \right), \mathcal{F} \right) \cdot N \left( \delta, \mathscr{L}_{2}
+  \left( Q_{2} \right), \mathcal{F} \right).
+\end{equation*}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--L2-mixture-meas-cover}]
+Let \(N_{\ell} = N \left( \delta, \mathscr{L}_{2} \left( Q_{\ell} \right),
+\mathcal{F} \right)\) and let \(\left\{ \varphi_{\ell, j} \right\}_{j =
+1}^{N_{\ell}} \subseteq \mathcal{F}\) be a \(\delta\)-cover for
+\(\mathcal{F}\) in \(\mathscr{L}_{2} \left( Q_{\ell} \right)\).
+Now follow \Cref{lem--L2-mixture-meas-approx}: define \(Q = Q_{1} + Q_{2}\),
+\(h_{\ell} = \mathrm{d} Q_{\ell} / \mathrm{d} Q\) and \(A_{\ell} = \left\{
+h_{\ell} \geq 1 / 2 \right\}\).
+Furthermore, define approximating functions
+\(g_{i j} = \varphi_{1, i} \cdot \mathbf{1}_{A_{1}} + \varphi_{2, j} \cdot
+\left( 1 - \mathbf{1}_{A_{1}} \right) \cdot \mathbf{1}_{A_{2}}\).
+The set \(\left\{ g_{i j} \right\}_{i, j = 1}^{N_{1}, N_{2}}\) is of size
+\(N_{1} \cdot N_{2}\).
+Fix \(f \in \mathcal{F}\), and \(i, j\) such that \(Q_{1} \left[ \left| f -
+\varphi_{1, i} \right|^{2} \right] \leq \delta^{2}\) and
+\(Q_{2} \left[ \left| f - \varphi_{2, j} \right|^{2} \right] \leq \delta^{2}\).
+By \Cref{lem--L2-mixture-meas-approx},
+\begin{equation*}
+  \begin{gathered}
+    Q \left[ \left| f - g_{i j} \right|^{2} \right] \leq 4 \delta^{2},
+    \quad \text{whence} \quad \left( \frac{Q_{1} + Q_{2}}{2} \right) \left[
+    \left| f - g_{i j} \right|^{2} \right] \leq 2 \delta^{2} \\
+    \text{so that} \quad \left\{ \left( \frac{Q_{1} + Q_{2}}{2} \right) \left[
+    \left| f - g_{i j} \right|^{2} \right] \right\}^{1 / 2} \leq \sqrt{2}
+    \delta.
+  \end{gathered}
+\end{equation*}
+Hence, \(N \left( \sqrt{2} \delta, \mathscr{L}_{2} \left( \left( Q_{1} + Q_{2}
+\right) / 2 \right), \mathcal{F} \right) \leq N \left( \delta, \mathscr{L}_{2}
+\left( Q_{1} \right), \mathcal{F} \right) \cdot N \left( \delta, \mathscr{L}_{2}
+\left( Q_{2} \right), \mathcal{F} \right)\) as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lem--xy-bound-xpy}
+For \(x, y \geq 0\), \(\min \{1, x \cdot y\} \leq \min \{1, x\} + \min \{1,
+y\}\).
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--xy-bound-xpy}]
+Break into three cases.
+
+\textbf{Case 1:} \(x, y \leq 1\).
+Then \(\min \{1, x \cdot y\} = x \cdot y \leq x \leq x + y = \min \{1, x\} +
+\min \{1, y\}\).
+
+\textbf{Case 2:} \(x, y > 1\).
+Then \(\min \{1, x \cdot y\} = 1 < 2 = \min \{1, x\} + \min \{1 + y\}\).
+
+\textbf{Case 3:} \(x \leq 1 < y\).
+Then \(\min \{1, x \cdot y\} \leq 1 \leq x + 1 = \min \{1,
+x\} + \min \{1, y\}\).
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../note-emp-proc-rates"
+%%% End:
