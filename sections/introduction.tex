@@ -4,51 +4,80 @@
 
 Let \(n \in \mathbb{N}\), \((\Omega, \mathscr{A}, \Pr)\) be an underlying
 probability space and \((\mathcal{X}, \mathscr{X})\) be a measurable space.
+Let \(Q\) be a signed measure on \((\mathcal{X}, \mathscr{X})\),
+and define the following:
+\begin{equation*}
+  \begin{split}
+  Q g :=
+  & \, \int g (x) Q (\mathrm{d} x) \quad \text{if } g \in \mathscr{L}_{1} (Q),
+  \\
+  \text{and} \quad \|Q\|_{\mathcal{F}} :=
+  & \, \sup_{f \in \mathcal{F}} |Q f| \quad \text{if} \quad \mathcal{F} \subseteq
+  \mathscr{L}_{1} (Q).
+  \end{split}
+  % \label{eqn--integral-functional-and-norm}
+\end{equation*}
 Let \(X_{1}, \dots, X_{n}\) be independent \(\mathcal{X}\)-valued random
 elements defined on \((\Omega, \mathscr{A}, \Pr)\) and denote the \(\Pr\)-law of
 \(X_{i}\) by \(P_{i}\).
 Define the measures:
 \begin{equation*}
-  \mathbb{P} (A) \equiv \mathbb{P}_{n} (A) := \frac{1}{n} \sum_{i = 1}^{n}
-  \delta_{\left\{ X_{i} \right\}} (A) = \frac{1}{n} \sum_{i = 1}^{n} \mathbf{1}
-  \left\{ X_{i} \in A \right\} \quad \text{and} \quad \overline{P} (A) \equiv
-  \overline{P}_{n} (A) := \frac{1}{n} \sum_{i = 1}^{n} P_{i} (A).
+  \begin{gathered}
+    \mathbb{P} (A) \equiv \mathbb{P}_{n} (A) := \frac{1}{n} \sum_{i = 1}^{n}
+    \delta_{\left\{ X_{i} \right\}} (A) = \frac{1}{n} \sum_{i = 1}^{n}
+    \mathbf{1} \left\{ X_{i} \in A \right\} \\
+    \text{and} \quad \overline{P} (A) \equiv \overline{P}_{n} (A) := \frac{1}{n}
+    \sum_{i = 1}^{n} P_{i} (A).
+  \end{gathered}
+  % \label{eqn--emp-and-avg-prob-meas}
 \end{equation*}
-For an arbitrary (signed) measure \(Q\) on \((\mathcal{X}, \mathscr{X})\), and
-\(f \in \mathscr{L}_{1} (Q)\), let \(Q f = \int f (x) \; \mathrm{d} x\).
-Furthermore, let \(\mathcal{F}\) be a class of \(\mathscr{X}\)-measurable
-real-valued functions.
-The empirical process is
-\begin{equation*}
-  f \mapsto \left( \mathbb{P} - \overline{P} \right) f := \frac{1}{n}
-  \sum_{i = 1}^{n} \left( f \left( X_{i} \right) - P_{i} f \right).
-\end{equation*}
-Its sup-norm as a real-valued stochastic process indexed by \(\mathcal{F}\)
-is denoted
-\begin{equation*}
-  \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} = \sup_{f \in
-  \mathcal{F}} \left| \left( \mathbb{P} - \overline{P} \right) f \right|.
-\end{equation*}
+For \(\mathcal{F} \subseteq \mathscr{L}_{1} (\overline{P})\),
+the empirical process is the map
+\(f \mapsto \left( \mathbb{P} - \overline{P} \right) [f] := \frac{1}{n} \sum_{i
+= 1}^{n} \left( f \left( X_{i} \right) - P_{i} f \right)\).
+It will be useful for later results to define the supremum second moment of
+\(\mathcal{F}\): for a probability measure \(Q\), define
+\begin{equation}
+  \kappa_{2} (Q, \mathcal{F}) := \sup_{f \in \mathcal{F}} \sqrt{Q \left[
+  f^{2} \right]}.
+  \label{eqn--F-2nd-moment-max}
+\end{equation}
+Finally, our bounds will all depend on a measure of complexity of the class
+\(\mathcal{F}\).
+As in the rest of the empirical process literature, we will mainly use
+covering (and packing) numbers under \(\mathscr{L}_{p}\) norms.
+\Cref{def--Lr-covering-number} provides a definition of this concept.
 
-Our first goal here is to provide upper bounds for
+\begin{definition}[\(\mathscr{L}_{p} (Q)\)-covering numbers]
+\label{def--Lr-covering-number}
+Let \(Q\) be a measure on \(\left( \mathcal{X}, \mathscr{X} \right)\) and let
+\(\mathscr{L}_{p} (Q)\) denote the space of \(Q\)-\(p\)-integrable functions for
+\(p \in [1, \infty)\) and the space of \(Q\)-essentially bounded functions for
+\(p = \infty\).
+For \(\mathcal{F} \subseteq \mathscr{L}_{p} (Q)\) and \(\varepsilon > 0\),
+define
 \begin{equation*}
-  \Pr \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} > y
-  \right\}
+  N \left( \varepsilon, \mathscr{L}_{p} (Q), \mathcal{F} \right) := \min \left\{
+  k \in \mathbb{N} : \exists f_{1}, \dots, f_{k} \in \mathcal{F} \text{ s.t. }
+  \min_{1 \leq j \leq k} \left( Q \left[ \left| f - f_{j} \right|^{p} \right]
+  \right)^{\frac{1}{p}} < \varepsilon \ \forall f \in \mathcal{F} \right\}.
 \end{equation*}
-as a function of \(y\), \(n\), the class \(\mathcal{F}\) and measures of
-complexity (i.e. covering numbers) and variability (i.e. second moment and
-variance suprema) of \(\mathcal{F}\).
+\end{definition}
+
+Our main goal here is to provide upper bounds for the tail outer probability
+\(\Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+y \right\}\) as a function of \(y\), \(n\), \(\mathcal{F}\) and
+measures of complexity (i.e. covering numbers) and variability (i.e. suprema of
+second moments and variances) of \(\mathcal{F}\).
 This is considered for the case where functions in \(\mathcal{F}\) are
 themselves uniformly bounded in magnitude by \(1\).
-The second goal is then to explore how these probability bounds can then be used
+A second goal is then to explore how these probability bounds can then be used
 to derive rates of convergence.
-A tertiary consideration will be to characterize how and when the chaining
-method offers an improvement over more crude methods using only covering
+A tertiary aim will be to characterize how and when the chaining method offers
+an improvement over more crude methods using only covering
 numbers, for both probability inequalities and convergence rate results.
 
 %%% Local Variables:
 %%% mode: LaTeX
 %%% TeX-master: "../note-emp-proc-rates"
 %%% End:
-
-% LocalWords:  cdf ecdf

@@ -5,112 +5,207 @@
 \begin{lemma}[\citet{2023vandervaartWeakConvergenceEmpirical}, Lemma 1.2.6, p.
 10]
 \label{lem--vdvw23-lem-1-2-6}
-Let \(T\) be an arbitrary real-valued map defined on a product probability
-space.
-Then \(\E_{\ast} T \leq \E_{1, \ast} \E_{2, \ast} T \leq \E_{1}^{\ast}
-\E_{2}^{\ast} T \leq \E^{\ast} T\).
+Let \(X_{1}\) and \(X_{2}\) be random elements on a common probability space.
+For any arbitrary real-valued map \(T\),
+\begin{equation*}
+  \E_{\ast} \left[ T \left( X_{1}, X_{2} \right) \right] \leq \E_{X_{1},
+  \ast} \E_{X_{2}, \ast} \left[ T \left( X_{1}, X_{2} \right) \right] \leq
+  \E_{X_{1}}^{\ast} \E_{X_{2}}^{\ast} \left[ T \left( X_{1}, X_{2} \right)
+  \right] \leq \E^{\ast} \left[ T \left( X_{1}, X_{2} \right) \right].
+\end{equation*}
 \end{lemma}
 
 \begin{lemma}
 \label{lem--symm-1}
-Let \(Z_{1}, \dots, Z_{n}\) be arbitrary independent \(\mathcal{F}\)-indexed
-real-valued stochastic processes and for \(\alpha > 0\), denote
-\(\beta_{n} (\alpha) = \inf_{f \in \mathcal{F}} \Pr \left\{ \left|
-\sum_{i = 1}^{n} Z_{i} \right| \leq \alpha \right\}\).
-Let \(\left( Y_{1}, \dots, Y_{n} \right)\) be an independent copy of \(\left(
-Z_{1}, \dots, Z_{n} \right)\).
-For any \(y > \alpha > 0\),
-\begin{equation}
-  \beta_{n} (\alpha) \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} Z_{i}
+Let \(\mathbf{Z} = \left( Z_{1}, \dots, Z_{m} \right)\), \(\mathbf{Y} = \left(
+Y_{1}, \dots, Y_{m} \right)\), and \(\mathbf{U} = \left( U_{1}, \dots, U_{m}
+\right)\) be mutually independent random elements defined on a common
+probability space.
+Let \(\mu_{1}, \dots, \mu_{n} : \mathcal{F} \to \mathbb{R}\) be arbitrary maps.
+Assume \(\mathbf{U}\) takes values in \(\{- 1, 1\}^{m}\), that the \(Z_{i}\)'s
+are mutually independent real-valued stochastic processes indexed by a set
+\(\mathcal{F}\) and that \(\mathbf{Y}\) is an independent copy of
+\(\mathbf{Z}\).
+For \(\alpha > 0\), denote \(\beta_{m} (\alpha) = \inf_{f \in \mathcal{F}} \Pr
+\left\{ \left| \sum_{i = 1}^{m} Z_{i} (f) \right| \leq \alpha \right\}\).
+For any \(y > \alpha > 0\), and any \(0 \leq \beta \leq \beta_{m} (\alpha)\),
+\begin{align}
+  \beta \cdot \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} Z_{i}
   \right\|_{\mathcal{F}} > y \right\} \leq
-  \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
-  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}
   \label{eqn--symm-1}
-\end{equation}
+  \\
+  \leq
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i}
+  \right) \right\|_{\mathcal{F}} > y - \alpha \right\}
+  \label{eqn--symm-2}
+  \\
+  \leq
+  & \, 2 \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} -
+  \mu_{i} \right) \right\|_{\mathcal{F}} > \frac{y - \alpha}{2} \right\}.
+  \label{eqn--symm-3}
+\end{align}
 \end{lemma}
 
 \begin{proof}[Proof of \Cref{lem--symm-1}]
-For convenience, denote \(\mathbf{Z} = \left( Z_{1}, \dots, Z_{n} \right)\)
-and \(\mathbf{Y} = \left( Y_{1}, \dots, Y_{n} \right)\).
-Denote coordinate-wise outer expectations and probabilities by
-\(\E_{\mathbf{Z}}^{\ast}\), \(\Pr_{\mathbf{Z}}^{\ast}\)
-\(\E_{\mathbf{Y}}^{\ast}\), and \(\Pr_{\mathbf{Y}}^{\ast}\).
-
-Clearly \(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
-\right\} = \left\{ \exists f \in \mathcal{F} : \left| \sum_{i = 1}^{n} Z_{i} (f)
-\right| > y \right\}\).
-Thus on \(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
-\right\}\), we can select \(f_{\ast} (\mathbf{Z})\) such that \(\left| \sum_{i =
-1}^{n} Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| > y\);
+We start with the first inequality in \eqref{eqn--symm-1}.
+It suffices to prove this inequality for \(\beta = \beta_{m} (\alpha)\).
+On \(\left\{ \left\| \sum_{i = 1}^{m} Z_{i} \right\|_{\mathcal{F}} > y
+\right\}\), we can select \(\widehat{f} (\mathbf{Z})\) such that \(\left|
+\sum_{i = 1}^{m} Z_{i} \left( \widehat{f} (\mathbf{Z}) \right) \right| > y\);
 let
-\(f_{\ast} (\cdot)\) be equal to an arbitrary member of \(\mathcal{F}\) on
-\(\left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} \leq y
+\(\widehat{f} (\cdot)\) be equal to an arbitrary member of \(\mathcal{F}\) on
+\(\left\{ \left\| \sum_{i = 1}^{m} Z_{i} \right\|_{\mathcal{F}} \leq y
 \right\}\).
 Under the hypothesis
-\(\left| \sum_{i = 1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right|
+\(\left| \sum_{i = 1}^{m} Y_{i} \left( \widehat{f} (\mathbf{Z}) \right) \right|
 \leq \alpha\),
 \begin{equation*}
-  \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}}
+  \begin{split}
+  \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}}
   \geq
-  \left| \sum_{i = 1}^{n} \left( Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) -
-  Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right) \right| \geq
-  \left| \sum_{i = 1}^{n} Z_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right|
-  - \left| \sum_{i = 1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| >
-  y - \alpha.
+  \left| \sum_{i = 1}^{m} \left( Z_{i} \left( \widehat{f} (\mathbf{Z}) \right) -
+  Y_{i} \left( \widehat{f} (\mathbf{Z}) \right) \right) \right| \geq
+  & \, \left| \sum_{i = 1}^{m} Z_{i} \left( \widehat{f} (\mathbf{Z}) \right)
+  \right| - \left| \sum_{i = 1}^{m} Y_{i} \left( \widehat{f} (\mathbf{Z})
+  \right) \right| \\
+  >
+  & \,  y - \alpha.
+  \end{split}
 \end{equation*}
 Therefore,
 \begin{equation*}
-  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
-  \right\} \cdot \mathbf{1} \left\{ \left| \sum_{i = 1}^{n} Y_{i} \left(
-  f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
-  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{m} Z_{i} \right\|_{\mathcal{F}} > y
+  \right\} \cdot \mathbf{1} \left\{ \left| \sum_{i = 1}^{m} Y_{i} \left(
+  \widehat{f} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)
   \right\|_{\mathcal{F}} > y - \alpha \right\}.
 \end{equation*}
 Fix \(\mathbf{Z}\) and take outer expectations with respect to
 \(\mathbf{Y}\)
 \begin{equation}
-  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i} \right\|_{\mathcal{F}} > y
-  \right\} \cdot \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{n} Y_{i}
-  \left( f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
-  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i}
+  \mathbf{1} \left\{ \left\| \sum_{i = 1}^{m} Z_{i} \right\|_{\mathcal{F}} > y
+  \right\} \cdot \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{m} Y_{i}
+  \left( \widehat{f} (\mathbf{Z}) \right) \right| \leq \alpha \right\} \leq
+  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i}
   \right) \right\|_{\mathcal{F}} > y - \alpha \right\}.
   \label{eqn--symm-1-1}
 \end{equation}
 Note that for fixed \(\mathbf{Z}\),
 \begin{equation*}
-  \beta_{n} (\alpha) \leq \Pr_{\mathbf{Y}} \left\{ \left| \sum_{i =
-  1}^{n} Y_{i} \left( f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\}
-  = \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{n} Y_{i} \left(
-  f_{\ast} (\mathbf{Z}) \right) \right| \leq \alpha \right\},
+  \beta_{m} (\alpha) \leq \Pr_{\mathbf{Y}} \left\{ \left| \sum_{i =
+  1}^{m} Y_{i} \left( \widehat{f} (\mathbf{Z}) \right) \right| \leq \alpha
+  \right\} = \Pr_{\mathbf{Y}}^{\ast} \left\{ \left| \sum_{i = 1}^{m} Y_{i}
+  \left( \widehat{f} (\mathbf{Z}) \right) \right| \leq \alpha \right\},
 \end{equation*}
-where the last equality follows since \(\sum_{i = 1}^{n} Y_{i} (f)\) is
+where the last equality follows since \(\sum_{i = 1}^{m} Y_{i} (f)\) is
 measurable for fixed \(f\).
 Combine the last display with \eqref{eqn--symm-1-1}:
 \begin{equation*}
-  \beta_{n} (\alpha) \cdot \mathbf{1} \left\{ \left\| \sum_{i = 1}^{n} Z_{i}
+  \beta_{m} (\alpha) \cdot \mathbf{1} \left\{ \left\| \sum_{i = 1}^{m} Z_{i}
   \right\|_{\mathcal{F}} > y \right\} \leq
-  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i}
+  \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i}
   \right) \right\|_{\mathcal{F}} > y - \alpha \right\}.
 \end{equation*}
-Now
-\eqref{eqn--symm-1} follows from integrating out \(\mathbf{Z}\) and using
-\Cref{lem--vdvw23-lem-1-2-6}:
+Now the first inequality in \eqref{eqn--symm-1} follows from integrating out
+\(\mathbf{Z}\) and using \Cref{lem--vdvw23-lem-1-2-6}:
 \begin{align*}
-  \beta_{n} (\alpha) \cdot \Pr_{\mathbf{Z}}^{\ast} \left\{ \left\| \sum_{i =
-  1}^{n} Z_{i} \right\|_{\mathcal{F}} > y \right\} \leq & \,
+  \beta_{m} (\alpha) \cdot \Pr_{\mathbf{Z}}^{\ast} \left\{ \left\| \sum_{i =
+  1}^{m} Z_{i} \right\|_{\mathcal{F}} > y \right\} \leq & \,
   \E_{\mathbf{Z}}^{\ast} \left[ \Pr_{\mathbf{Y}}^{\ast} \left\{ \left\| \sum_{i
-  = 1}^{n} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}} > y - \alpha
+  = 1}^{m} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}} > y - \alpha
   \right\} \right] \\
   \leq
-  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{n} \left( Z_{i} - Y_{i} \right)
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)
   \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{align*}
+
+For \eqref{eqn--symm-2}, first note that for each value of
+\(\mathbf{U}\), \(\sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i} \right)\) and
+\(\sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)\) have the same distribution
+since \(\mathbf{Z}\) and \(\mathbf{Y}\) are independent copies of each other,
+the \(Z_{i}\)'s are all mutually independent, and the \(U_{i}\)'s are all either
+\(- 1\) or \(1\).
+Thus for \(\mathbf{U}\) held fixed, integrating out \((\mathbf{Z}, \mathbf{Y})\)
+yields
+\begin{equation*}
+  \Pr^{\ast}_{\left( \mathbf{Z}, \mathbf{Y} \right)} \left\{ \left\| \sum_{i =
+  1}^{m} U_{i} \left( Z_{i} - Y_{i} \right) \right\|_{\mathcal{F}} > y - \alpha
+  \right\}
+  =
+  \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{equation*}
+Hence, \eqref{eqn--symm-2} follows from integrating out \(\mathbf{U}\) in the
+above and using \Cref{lem--vdvw23-lem-1-2-6}:
+\begin{align*}
+  \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\} \geq
+  & \, \E_{\mathbf{U}} \left[ \Pr^{\ast}_{\left( \mathbf{Z}, \mathbf{Y} \right)}
+  \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\} \right] \\
+  =
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} > y - \alpha \right\}.
+\end{align*}
+
+For \eqref{eqn--symm-3}, by the triangle inequality
+\begin{equation*}
+  \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i} \right)
+  \right\|_{\mathcal{F}} \leq \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} -
+  \mu_{i} \right) \right\|_{\mathcal{F}} + \left\| \sum_{i = 1}^{m} U_{i} \left(
+  Y_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}.
+\end{equation*}
+Now \eqref{eqn--symm-3} follows from the union bound:
+\begin{align*}
+  \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} - Y_{i}
+  \right) \right\|_{\mathcal{F}} > y - \alpha \right\} \leq
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} -
+  \mu_{i} \right) \right\|_{\mathcal{F}} + \left\| \sum_{i = 1}^{m} U_{i} \left(
+  Y_{i} - \mu_{i} \right) \right\|_{\mathcal{F}} > y - \alpha \right\} \\
+  \leq
+  & \, \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left(
+  Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}} > \frac{y - \alpha}{2} \right\}
+  \\
+  & \, + \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Y_{i} -
+  \mu_{i} \right) \right\|_{\mathcal{F}} > \frac{y - \alpha}{2} \right\} \\
+  =
+  & \, 2 \Pr^{\ast} \left\{ \left\| \sum_{i = 1}^{m} U_{i} \left( Z_{i} -
+  \mu_{i} \right) \right\|_{\mathcal{F}} > \frac{y - \alpha}{2} \right\}.
 \end{align*}
 \end{proof}
 
+\begin{lemma}
+\label{lem--symm-2}
+Let the conditions in the premise of \Cref{lem--symm-1} hold and in addition,
+assume that \(Z_{1}, \dots, Z_{n}\) are independent mean zero and finite
+variance processes indexed by \(\mathcal{F}\).
+Let \(\beta \in (0, 1)\) and \(y > \alpha > \left( \sup_{f \in \mathcal{F}}
+\sqrt{\sum_{i = 1}^{m} \Var \left[ Z_{i} (f) \right]} \right) / \sqrt{1 -
+\beta}\).
+Then \eqref{eqn--symm-1}, \eqref{eqn--symm-2} and \eqref{eqn--symm-3} all hold.
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--symm-2}]
+We are done if we show \(\beta \leq \beta_{m} (\alpha) := \inf_{f \in
+\mathcal{F}} \Pr \left\{ \left\| \sum_{i = 1}^{m} Z_{i} (f) \right| \leq \alpha
+\right\}\) or equivalently that \(1 - \beta_{m} (\alpha) \leq 1 - \beta\).
+To that end, by \(\alpha > \left( \sup_{f \in \mathcal{F}} \sqrt{\sum_{i =
+1}^{m} \Var \left[ Z_{i} (f) \right]} \right) / \sqrt{1 - \beta}\),
+and Chebyshev's inequality,
+\begin{align*}
+  1 - \beta > \frac{\sup_{f \in \mathcal{F}} \sum_{i = 1}^{m} \Var \left[ Z_{i}
+  (f) \right]}{\alpha^{2}} \geq
+  & \, \sup_{f \in \mathcal{F}} \Pr \left\{ \left\|
+  \sum_{i = 1}^{m} Z_{i} (f) \right| > \alpha \right\} \\
+  =
+  & \, 1 - \inf_{f \in \mathcal{F}} \Pr \left\{ \left\| \sum_{i = 1}^{m} Z_{i}
+  (f) \right| \leq \alpha \right\} = 1 - \beta_{m} (\alpha).
+\end{align*}
+\end{proof}
 
 %%% Local Variables:
 %%% mode: LaTeX
 %%% TeX-master: "../note-emp-proc-rates"
 %%% End:
-
-% LocalWords:  cdf ecdf

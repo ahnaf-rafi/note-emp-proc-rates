@@ -1,67 +1,648 @@
 %! TEX root = ../note-emp-proc-rates.tex
 
-\section{Useful preliminary probability inequalities}
+\section{Preliminary probability inequalities}
 
-Here, it will be useful to define the symmetrized empirical process:
+Our first main result is the following bound.
+
+\begin{theorem}
+\label{thm--ep-prob-ineq-no-chain}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\) and let \(x, t > 0\) satisfy
 \begin{equation*}
-  \mathbb{P}^{\circ} f \equiv \mathbb{P}^{\circ}_{n} f := \frac{1}{n} \sum_{i =
-  1}^{n} \varepsilon_{i} f \left( X_{i} \right),
+  x \geq \frac{1}{\sqrt{8 n}} \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n} \sum_{i
+  = 1}^{n} \Var \left[ f \left( X_{i} \right) \right]} \quad \text{and} \quad
+  t \geq \kappa_{2} \left( \overline{P}, \mathcal{F} \right).
 \end{equation*}
-where \(\varepsilon_{1}, \dots, \varepsilon_{n} \overset{\mathrm{iid}}{\sim}
-\text{Rademacher}\) with \(\left\{ \varepsilon_{i} \right\}_{i = 1}^{n} \indep
-\left\{ X_{i} \right\}_{i = 1}^{n}\).
-
-The following is a useful result from
-\citet{2023vandervaartWeakConvergenceEmpirical}, where it is stated as Lemma
-2.3.7.
-In the original statement, the final stipulation is made for iid processes, but
-the adjustment made here is minor and clearly holds true as well by a simple
-application of Chebyshev's inequality.
-
-\begin{lemma}[\citet{2023vandervaartWeakConvergenceEmpirical}, Lemma 2.3.7,
-p. 176]
-\label{lem--vdvw23-lem-2-3-7}
-Let \(Z_{1}, \dots, Z_{n}\) be arbitrary independent \(\mathcal{F}\)-indexed
-stochastic processes, \(\mu_{1}, \dots, \mu_{n} : \mathcal{F} \to \mathbb{R}\)
-be arbitrary functions, and \(\varepsilon_{1}, \dots, \varepsilon_{n}
-\overset{\mathrm{iid}}{\sim}
-\text{Rademacher}\) with \(\left\{ \varepsilon_{i} \right\}_{i = 1}^{n} \indep
-\left\{ Z_{i} \right\}_{i = 1}^{n}\).
 Then
 \begin{equation}
-  \beta_{n} (y / 2) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
-  \right\|_{\mathcal{F}} > y \right) \leq 2 \Pr^{\ast} \left( 4 \left\| \sum_{i
-  = 1}^{n} \varepsilon_{i} \left( Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}
-  > y \right),
-  \label{eqn--vdvw23-lem--2-3-7}
+  \begin{gathered}
+    \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+    \right\|_{\mathcal{F}} > 8 x \right\} \leq
+    \min \left\{ 1, \E \left[ \phi \left( x, t; \mathbb{P}, \mathcal{F} \right)
+    \right] \right\}, \quad \text{where}
+    \\
+    \phi \left( x, t; \mathbb{P}, \mathcal{F} \right) =
+    8 \exp \left( - \frac{n x^{2}}{128 t^{2}} \right) N \left( x,
+    \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) +
+    16 N \left( t, \mathscr{L}_{2} (\mathbb{P}), \mathcal{F} \right) \exp \left(
+    - n t^{2} \right).
+  \end{gathered}
+  \label{eqn--ep-prob-ineq-no-chain}
 \end{equation}
-for every \(y > 0\) and \(\beta_{n} (y) \leq \inf_{f \in \mathcal{F}} \Pr \left(
-\left| \sum_{i = 1}^{n} Z_{i} (f) \right| < y / 2 \right)\).
-In particular this is true for independent mean-zero finite variance processes,
-and \(\beta_{n} (y) = 1 - \frac{4}{y^{2}} \sup_{f \in \mathcal{F}} \sum_{i =
-1}^{n} \Var \left[ Z_{i} (f) \right]\).
-\end{lemma}
+\end{theorem}
 
-Later on, we will combine \Cref{lem--vdvw23-lem-2-3-7} with some other
-inequalities that can be found in proofs of results in
-\citet{1984pollardConvergenceStochasticProcesses}.
+In \eqref{eqn--ep-prob-ineq-no-chain}, the trivial upper bound of one comes from
+the fact that \(\Pr^{\ast}\) is an outer probability.
+We prove the bound due to the function \(\phi\) in
+\Cref{thm--ep-prob-ineq-no-chain} as follows.
+First, we bound \(\Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
+\right\|_{\mathcal{F}} > y \right\}\) by a tail outer probability for a
+symmetrized empirical process.
+Then, we bound the outer probability ``conditional'' on symmetrization variables
+by an squared-exponential decay.
+This is the first summand in \(\phi\) in \eqref{eqn--ep-prob-ineq-no-chain}.
+The squared-exponential decay function in the second step depends on the largest
+empirical second moment \(\kappa_{2} (\mathbb{P}, \mathcal{F})\).
+The second summand entering \(\phi\) in \eqref{eqn--ep-prob-ineq-no-chain}
+results from a bound on deviation probabilities for
+\(\kappa_{2} (\mathbb{P}, \mathcal{F}) / \kappa_{2} (\overline{P},
+\mathcal{F})\).
+
+The symmetrized empirical process is
+\begin{equation}
+  \mathbb{P}^{\circ} f \equiv \mathbb{P}^{\circ}_{n} f := \frac{1}{n} \sum_{i =
+  1}^{n} U_{i} f \left( X_{i} \right),
+  % \label{eqn--ep-sym}
+\end{equation}
+where \(U_{1}, \dots, U_{n} \overset{\mathrm{iid}}{\sim} \text{Rademacher}\)
+with \(\mathbf{U} := \left( U_{1}, \dots, U_{n} \right)\) independent to
+\(\mathbf{X} := \left( X_{1}, \dots, X_{n} \right)\).
 
 \begin{remark}
-\label{rem--vdvw23-lem--2-3-7}
-\begin{equation}
-  \beta_{n} (\alpha) \Pr^{\ast} \left( \left\| \sum_{i = 1}^{n} Z_{i}
-  \right\|_{\mathcal{F}} > y \right) \leq 2 \Pr^{\ast} \left( 4 \left\| \sum_{i
-  = 1}^{n} \varepsilon_{i} \left( Z_{i} - \mu_{i} \right) \right\|_{\mathcal{F}}
-  > \frac{y - \alpha}{2}  \right),
-  \label{eqn--vdvw23-lem--2-3-7-adj}
-\end{equation}
-for every \(y > 0\) and \(\beta_{n} (y) \leq \inf_{f \in \mathcal{F}} \Pr \left(
-\left| \sum_{i = 1}^{n} Z_{i} (f) \right| < y / 2 \right)\).
+% \label{rem--coordinate-wise-expectation}
+For random elements \(V_{1}\) and \(V_{2}\) and an arbitrary
+(not necessarily measurable) map \(T \left( V_{1}, V_{2} \right)\),
+\(\Pr_{V_{1}, \ast} \left[ T \left( V_{1}, V_{2} \right) \right]\) and
+\(\Pr_{V_{1}}^{\ast} \left[ T \left( V_{1}, V_{2} \right) \right]\) are the
+inner and outer probabilities respectively over \(V_{1}\), taking \(V_{2}\) as
+fixed.
+Analogous notation applies to inner and outer expectations.
 \end{remark}
+
+\begin{lemma}
+\label{lem--ep-norm-sym-bound}
+For \(y \geq \sqrt{\frac{8}{n}} \cdot \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n}
+\sum_{i =
+1}^{n} \Var \left[ f \left( X_{i} \right) \right]}\),
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  y \right\} \leq 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > \frac{y}{4} \right\}.
+  \label{eqn--ep-norm-sym-bound}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-norm-sym-bound}]
+\Cref{lem--ep-norm-sym-bound} is an application of \Cref{lem--symm-2}, which is
+a slightly generalized variant of Lemma 2.3.7 in
+\citet[p. 176]{2023vandervaartWeakConvergenceEmpirical}.
+For details of the application here, see \Cref{sc--prf--lem--ep-norm-sym-bound}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--ep-sym-unif-hoeffding-cond}
+Suppose \(\mathcal{F}\) satisfies \(\kappa_{2}^{2} \left( \mathbb{P},
+\mathcal{F} \right) < \infty\) almost surely (e.g. \(\mathcal{F}\) has an
+envelope in \(\mathscr{L}_{2} (P)\)).
+For \(t > 0\),
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq \min \left\{ 1, 2 \exp \left( -
+  \frac{n t^{2}}{8 \kappa_{2}^{2} (\mathbb{P}, \mathcal{F})} \right) N \left( t
+  / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) \right\}.
+  \label{eqn--ep-sym-unif-hoeffding-cond}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-sym-unif-hoeffding-cond}]
+See \Cref{sec--prf--lem--ep-sym-unif-hoeffding-cond}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--sqrt-ep-2nd-moment-sup-pbound}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For \(t > 0\) such that \(t \geq \kappa_{2} \left( \overline{P}, \mathcal{F}
+\right)\),
+\begin{equation}
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \sqrt{\mathbb{P} \left[ f^{2}
+  \right]} > 8 t \right\} \leq \E \left[\min \left\{ 1, 4 N \left( t,
+  \mathscr{L}_{2} (\mathbb{P}), \mathcal{F} \right) \exp \left( - n t^{2}
+  \right) \right\} \right].
+  \label{eqn--sqrt-ep-2nd-moment-sup-pbound}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--sqrt-ep-2nd-moment-sup-pbound}]
+See
+\Cref{sec--prf--lem--sqrt-ep-2nd-moment-sup-pbound}
+\end{proof}
+
+
+We are now ready to proceed to the proof of \Cref{thm--ep-prob-ineq-no-chain}.
+
+\subsection{Proof of \texorpdfstring{\Cref{thm--ep-prob-ineq-no-chain}}{Theorem
+\ref{thm--ep-prob-ineq-no-chain}}}
+
+By \eqref{eqn--ep-norm-sym-bound} in \Cref{lem--ep-norm-sym-bound}, for \(x \geq
+\frac{1}{\sqrt{8 n}} \sup_{f \in \mathcal{F}} \sqrt{\frac{1}{n}
+\sum_{i = 1}^{n} \Var \left[ f \left( X_{i} \right) \right]}\) and \(t > 0\),
+\begin{align*}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  8 x \right\} \leq 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x \right\} \leq
+  & \, 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} >
+  2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64 t^{2} \right\} \\
+  & + 4 \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} > 2
+  x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) > 64 t^{2} \right\}.
+\end{align*}
+Hence,
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P} \right\|_{\mathcal{F}} >
+  8 x \right\} \leq 4 \left( \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64
+  t^{2} \right\} + \Pr^{\ast} \left\{ \kappa_{2} (\mathbb{P}, \mathcal{F}) >
+  8 t \right\} \right).
+  \label{eqn--ep-unif-improved-no-chain-1}
+\end{equation}
+By \eqref{eqn--ep-sym-unif-hoeffding-cond} in
+\Cref{lem--ep-sym-unif-hoeffding-cond},
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > 2 x, \kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 64
+  t^{2} \right\} \leq 2 \exp \left( - \frac{n x^{2}}{128 t^{2}} \right) N \left(
+  x, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right).
+  \label{eqn--ep-unif-improved-no-chain-2}
+\end{equation}
+Then \eqref{eqn--ep-prob-ineq-no-chain} follows from combining
+\eqref{eqn--ep-unif-improved-no-chain-2} with
+\eqref{eqn--ep-unif-improved-no-chain-1} and using
+\eqref{eqn--sqrt-ep-2nd-moment-sup-pbound} in
+\Cref{lem--sqrt-ep-2nd-moment-sup-pbound}.
+
+\subsection{Proof of \texorpdfstring{%
+\Cref{lem--ep-norm-sym-bound}}{Lemma \ref{lem--ep-norm-sym-bound}}}
+\label{sc--prf--lem--ep-norm-sym-bound}
+
+Define \(Z_{i} (f) = \left( f \left( X_{i} \right) - \E \left[ f
+\left( X_{i} \right) \right] \right) / n\).
+By \Cref{lem--symm-2}, the lower bound on \(y\) justifies the use of
+\(\beta = 1 / 2\) and \(\alpha = y / 2\) in \Cref{lem--symm-1}; whence
+\eqref{eqn--ep-norm-sym-bound} follows from an application of
+\eqref{eqn--symm-3} in \Cref{lem--symm-1}.
+\qed
+
+\subsection{Proof of \texorpdfstring{%
+\Cref{lem--ep-sym-unif-hoeffding-cond}}{Lemma
+\ref{lem--ep-sym-unif-hoeffding-cond}}}
+\label{sec--prf--lem--ep-sym-unif-hoeffding-cond}
+
+Treat \(\mathbf{X}\) as fixed.
+The trivial upper bound of \(1\) follows from the fact that
+\(\Pr_{\mathbf{U}}^{\ast}\) is an outer probability.
+It will be useful to note the following: since \(U_{i} \in \{- 1, 1\}\),
+\begin{equation}
+  \forall g \in \mathcal{F}, \quad \left| \mathbb{P}^{\circ} g \right| = \left|
+  \frac{1}{n} \sum_{i = 1}^{n} U_{i} g \left( X_{i} \right) \right| \leq
+  \frac{1}{n} \sum_{i = 1}^{n} \left| g \left( X_{i} \right) \right| =
+  \mathbb{P} |g|.
+  \label{eqn--ep-sym-unif-hoeffding-sym-bound-emp-1}
+\end{equation}
+Let \(N = N \left( t / 2, \mathscr{L}_{1} (\mathbb{P}),
+\mathcal{F} \right)\) and select \(\mathcal{F}_{\ast} = \left\{ g_{1}, \dots,
+g_{N} \right\} \subseteq \mathcal{F}\) such that
+\begin{equation}
+  \text{defining } g_{\ast, f} := \argmin_{g \in \mathcal{F}_{\ast}}
+  \mathbb{P} \left| f - g \right|, \text{ we have } \sup_{f \in \mathcal{F}}
+  \mathbb{P} \left| f - g_{\ast, f} \right| \leq t / 2.
+  \label{eqn--ep-sym-unif-hoeffding-g-select-1}
+\end{equation}
+Combining \eqref{eqn--ep-sym-unif-hoeffding-sym-bound-emp-1} and
+\eqref{eqn--ep-sym-unif-hoeffding-g-select-1},
+\begin{equation*}
+  \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} = \sup_{f \in \mathcal{F}}
+  \left| \mathbb{P}^{\circ} f \right| \leq \max_{j = 1, \dots, N} \left|
+  \mathbb{P}^{\circ} g_{j} \right| + \sup_{f \in \mathcal{F}} \mathbb{P} \left|
+  f - g_{\ast, f} \right| \leq \max_{j = 1, \dots, N} \left| \mathbb{P}^{\circ}
+  g_{j} \right| + (t / 2).
+\end{equation*}
+Thus \(\mathbf{1} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} > t
+\right\} \leq \mathbf{1} \left\{ \max_{j = 1, \dots, N} \left|
+\mathbb{P}^{\circ} g_{j} \right| > \frac{t}{2} \right\}\) whence
+\begin{equation*}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq \Pr_{\mathbf{U}} \left\{ \max_{j = 1,
+  \dots, N} \left| \mathbb{P}^{\circ} g_{j} \right| > t / 2 \right\} \leq
+  N \max_{j = 1, \dots, N} \Pr_{\mathbf{U}} \left\{ \left| \mathbb{P}^{\circ}
+  g_{j} \right| > t / 2 \right\}.
+\end{equation*}
+By \eqref{eqn--hoeffding-sym-special} in \Cref{lem--hoeffding-sym-special},
+since \(\mathbb{P} g_{j}^{2} \leq \kappa_{2}^{2} (\mathbb{P}, \mathcal{F})\), it
+follows that for each \(j = 1, \dots, N\),
+\begin{equation*}
+  \Pr_{\mathbf{U}} \left\{ \left| \mathbb{P}^{\circ} g_{j} \right| > t / 2
+  \right\} \leq 2 \exp \left( - \frac{n t^{2}}{8 \cdot \mathbb{P} g_{j}^{2}}
+  \right) \leq 2 \exp \left( - \frac{n t^{2}}{8 \cdot \kappa_{2}^{2}
+  (\mathbb{P}, \mathcal{F})} \right).
+\end{equation*}
+Now \eqref{eqn--ep-sym-unif-hoeffding-cond} follows by combining the two
+previous displayed equations:
+\begin{equation*}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq
+  2 N \exp \left( - \frac{n t^{2}}{8 \cdot \kappa_{2}^{2} (\mathbb{P},
+  \mathcal{F})} \right).
+\end{equation*}
+\qed
+
+\subsection{Proof of
+\texorpdfstring{\Cref{lem--sqrt-ep-2nd-moment-sup-pbound}}{Lemma
+\ref{lem--sqrt-ep-2nd-moment-sup-pbound}}}
+\label{sec--prf--lem--sqrt-ep-2nd-moment-sup-pbound}
+
+\subsubsection{Setup and auxiliary results}
+
+In this proof, let \(\mathbf{W} = \left( W_{1}, \dots, W_{n} \right)\) be an
+independent copy of \(\mathbf{X} = \left( X_{1}, \dots, X_{n} \right)\), and let
+\begin{equation}
+  \mathbb{Q} \equiv \mathbb{Q}_{n} := \frac{1}{n} \sum_{i = 1}^{n}
+  \delta_{\left\{ W_{i} \right\}} \quad \text{and} \quad \mathbb{S} \equiv
+  \mathbb{S}_{n} := \frac{1}{2} \left( \mathbb{P}_{n} + \mathbb{Q}_{n} \right)
+  \equiv \frac{1}{2} \left( \mathbb{P} + \mathbb{Q} \right).
+\end{equation}
+We might expect that our previous symmetrization approach to be useful here.
+However the square root in the definition of \(\kappa_{2}\) complicates
+symmetrization by Rademacher variables; thus a carefully constructed alternative
+treatment of ``symmetrization'' is required.
+We proceed via a randomized selection process: let \(\mathbf{T} = \left( T_{1},
+\dots, T_{n} \right)\) be a vector of iid \(\mathrm{Bernoulli} (1 / 2)\)
+variables satisfying \(\mathbf{T} \indep (\mathbf{X}, \mathbf{W})\), and define
+\begin{equation}
+  \begin{split}
+    \xi_{i} =
+    & \, T_{i} X_{i} + \left( 1 - T_{i} \right) W_{i} \quad \text{and} \quad
+    \omega_{i} = T_{i} W_{i} + \left( 1 - T_{i} \right) X_{i}, \\
+    \mathbb{P}^{\prime} =
+    & \, \frac{1}{n} \sum_{i = 1}^{n} \delta_{\left\{ \xi_{i} \right\}} \quad
+    \text{and} \quad \mathbb{Q}^{\prime} = \frac{1}{n} \sum_{i = 1}^{n}
+    \delta_{\left\{ \omega_{i} \right\}}.
+  \end{split}
+\end{equation}
+Notice that \((\mathbb{P}, \mathbb{Q}) \sim \left( \mathbb{P}^{\prime},
+\mathbb{Q}^{\prime} \right)\) and that \(\mathbb{S} \equiv \frac{1}{2} \left(
+\mathbb{P}^{\prime} + \mathbb{Q}^{\prime} \right)\).
+
+\begin{lemma}
+\label{lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}
+For every \(t > 0 \) such that \(t \geq \kappa_{2} \left( \overline{P},
+\mathcal{F} \right)\),
+\begin{equation}
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left| \sqrt{\mathbb{P} \left[
+  f^{2} \right]} \right| > 8 t \right\} \leq
+  \frac{4}{3} \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+  \left[ f^{2} \right]} \right| > 6 t \right\}.
+  \label{eqn--sqrt-ep-2nd-moment-ratio-symm-bound-1}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}]
+See \Cref{sec--prf--lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--sqrt-ep-2nd-moment-ratio-symm-single}
+Let \(f\) be a measurable real function such that \(\sup_{x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For any \(t > 0\),
+\begin{equation}
+  \Pr_{\mathbf{T}} \left\{ \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2}
+  \right]} - \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| > t
+  \right\} \leq 2 \exp \left( - n t^{2} / 2 \right).
+  \label{eqn--sqrt-ep-2nd-moment-ratio-symm-single}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--sqrt-ep-2nd-moment-ratio-symm-single}]
+See \Cref{sec--prf--lem--sqrt-ep-2nd-moment-ratio-symm-single}.
+\end{proof}
+
+\begin{lemma}
+\label{lem--sqrt-ep-2nd-moment-sup-symm-pbound}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For \(t > 0\) such that \(t \geq \kappa_{2} \left( \overline{P}, \mathcal{F}
+\right)\),
+\begin{equation}
+  \begin{split}
+    \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+    \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+    \left[ f^{2} \right]} \right| > 6 t \right\} \leq
+    & \, \min \left\{ 1, 2 N \left( t, \mathscr{L}_{2} (\mathbb{P}), \mathcal{F}
+    \right) \exp \left( - n t^{2} \right) \right\} \\
+    & + \min \left\{ 1, N \left( t, \mathscr{L}_{2} (\mathbb{Q}), \mathcal{F}
+    \right) \exp \left( - n t^{2} \right) \right\},
+  \end{split}
+  \label{eqn--sqrt-ep-2nd-moment-sup-symm-pbound-conditional}
+\end{equation}
+and so,
+\begin{equation}
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+  \left[ f^{2} \right]} \right| > 6 t \right\} \leq
+  \E \left[  \min \left\{ 1, 3 N \left( t, \mathscr{L}_{2} (\mathbb{P}),
+  \mathcal{F} \right) \exp \left( - n t^{2} \right) \right\} \right].
+  \label{eqn--sqrt-ep-2nd-moment-sup-symm-pbound-1}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--sqrt-ep-2nd-moment-sup-symm-pbound}]
+See \Cref{sec--prf--lem--sqrt-ep-2nd-moment-sup-symm-pbound}.
+\end{proof}
+
+\subsubsection{Proof of
+\texorpdfstring{\Cref{lem--sqrt-ep-2nd-moment-sup-pbound}}{Lemma
+\ref{lem--sqrt-ep-2nd-moment-sup-pbound}}}
+
+\eqref{eqn--sqrt-ep-2nd-moment-sup-pbound} follows directly from combining
+\eqref{eqn--sqrt-ep-2nd-moment-ratio-symm-bound-1} in
+\Cref{lem--sqrt-ep-2nd-moment-ratio-symm-bound-1} with
+\eqref{eqn--sqrt-ep-2nd-moment-sup-symm-pbound-1} in
+\Cref{lem--sqrt-ep-2nd-moment-sup-symm-pbound}.
+\qed
+
+\subsubsection{Proof of
+\texorpdfstring{\Cref{lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}}{Lemma
+\ref{lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}}}
+\label{sec--prf--lem--sqrt-ep-2nd-moment-ratio-symm-bound-1}
+
+First, note that by \(\mathbb{P} \sim \mathbb{P}^{\prime}\),
+\begin{equation*}
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left| \sqrt{\mathbb{P} \left[
+  f^{2} \right]} \right| > 8 t \right\} =
+  \Pr^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left| \sqrt{\mathbb{P}^{\prime}
+  \left[ f^{2} \right]} \right| > 8 t \right\}
+\end{equation*}
+Define \(Z_{1} (f) = \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]}\) and
+\(Y_{1} (f) = \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]}\).
+We will apply \eqref{eqn--symm-1} in \Cref{lem--symm-1} with \(m = 1\), \(y = 8
+t\), \(\alpha = 2 t\) and \(\beta = 3 / 4\).
+For \(t > 0\),
+\begin{equation*}
+  \sup_{f \in \mathcal{F}} \Pr \left\{ \left| Y_{1} (f) \right| > 2 t
+  \right\} \leq \sup_{f \in \mathcal{F}} \frac{\E \left[ Y_{1}^{2} (f)
+  \right]}{4 t} = \sup_{f \in \mathcal{F}} \frac{\E \left[ \mathbb{Q}^{\prime}
+  \left[ f^{2} \right] \right]}{4 t^{2}} = \sup_{f \in \mathcal{F}}
+  \frac{\overline{P} \left[ f^{2} \right]}{4 t^{2}} = \frac{\kappa_{2}^{2}
+  \left( \overline{P}, \mathcal{F} \right)}{4 t^{2}}.
+\end{equation*}
+Thus if additionally \(t \geq \kappa_{2} \left( \overline{P}, \mathcal{F}
+\right)\), it follows that \(\sup_{f \in \mathcal{F}} \Pr \left\{ \left| Y_{1}
+(f) \right| > 2 t \right\} \leq 1 / 4\), which is equivalent to \(\inf_{f \in
+\mathcal{F}} \Pr \left\{ \left| Y_{1} (f) \right| \leq 2 t \right\} \geq 3 / 4 =
+\beta\).
+Now, \eqref{eqn--sqrt-ep-2nd-moment-ratio-symm-bound-1} follows directly from
+\eqref{eqn--symm-1} in \Cref{lem--symm-1} with \(m = 1\), \(y = 8
+t\), \(\alpha = 2 t\) and \(\beta = 3 / 4\).
+
+\qed
+
+\subsubsection{Proof of
+\texorpdfstring{\Cref{lem--sqrt-ep-2nd-moment-ratio-symm-single}}{Lemma
+\ref{lem--sqrt-ep-2nd-moment-ratio-symm-single}}}
+\label{sec--prf--lem--sqrt-ep-2nd-moment-ratio-symm-single}
+
+Note that
+\begin{equation*}
+  \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| = \frac{\left|
+  \mathbb{P}^{\prime} \left[ f^{2} \right] - \mathbb{Q}^{\prime} \left[ f^{2}
+  \right] \right|}{\sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} +
+  \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]}}.
+\end{equation*}
+Furthermore,
+\begin{equation*}
+  \left( \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} +
+  \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right)^{2} =
+  \mathbb{P}^{\prime} \left[ f^{2} \right] + \mathbb{Q}^{\prime} \left[
+  f^{2} \right] + 2 \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]
+  \mathbb{Q}^{\prime} \left[ f^{2} \right]} \geq \mathbb{P}^{\prime} \left[
+  f^{2} \right] + \mathbb{Q}^{\prime} \left[ f^{2} \right] = 2
+  \mathbb{S} \left[ f^{2} \right].
+\end{equation*}
+Combine the previous two displays:
+\begin{equation*}
+  \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| \leq \frac{\left|
+  \mathbb{P}^{\prime} \left[ f^{2} \right] - \mathbb{Q}^{\prime} \left[ f^{2}
+  \right] \right|}{\sqrt{2 \mathbb{S} \left[ f^{2} \right]}}.
+\end{equation*}
+Then,
+\begin{equation*}
+  \Pr_{\mathbf{T}} \left\{ \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2}
+  \right]} - \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| > t
+  \right\} \leq \Pr_{\mathbf{T}} \left\{ \left| \mathbb{P}^{\prime} \left[ f^{2}
+  \right] - \mathbb{Q}^{\prime} \left[ f^{2} \right] \right| > t \sqrt{2
+  \mathbb{S} \left[ f^{2} \right]} \right\}
+\end{equation*}
+Now, we can express \(\mathbb{P}^{\prime} \left[ f^{2} \right] -
+\mathbb{Q}^{\prime} \left[ f^{2} \right]\) as a Rademacher symmetrization.
+Define \(U_{i} = 2 T_{i} - 1\), so that \(U_{i} \sim \mathrm{Rademacher}\).
+Then,
+\begin{align*}
+  \mathbb{P}^{\prime} \left[ f^{2} \right] - \mathbb{Q}^{\prime} \left[ f^{2}
+  \right] =
+  & \, \frac{1}{n} \sum_{i = 1}^{n} \left[ T_{i} f^{2} \left( X_{i} \right)
+  + \left( 1 - T_{i} \right) f^{2} \left( W_{i} \right) - T_{i} f^{2} \left(
+  W_{i} \right) - \left( 1 - T_{i} \right) f^{2} \left( X_{i} \right) \right] \\
+  =
+  & \, \frac{1}{n} \sum_{i = 1}^{n} U_{i} \left[ f^{2} \left( X_{i} \right) -
+  f^{2} \left( W_{i} \right) \right].
+\end{align*}
+Combine these last two displays:
+\begin{equation*}
+  \Pr_{\mathbf{T}} \left\{ \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2}
+  \right]} - \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| > t
+  \right\} \leq \Pr_{\mathbf{T}} \left\{ \left| \sum_{i = 1}^{n} U_{i} \left[
+  f^{2} \left( X_{i} \right) - f^{2} \left( W_{i} \right) \right] \right| > n t
+  \sqrt{2 \mathbb{S} \left[ f^{2} \right]} \right\}.
+\end{equation*}
+By \Cref{lem--hoeffding-sym-special}
+\begin{equation*}
+  \Pr_{\mathbf{T}} \left\{ \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2}
+  \right]} - \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| > t
+  \right\} \leq 2 \exp \left( - \frac{n^{2} t^{2} \mathbb{S} \left[ f^{2}
+  \right]}{\sum_{i = 1}^{n} \left[ f^{2} \left( X_{i} \right) - f^{2} \left(
+  W_{i} \right) \right]^{2}} \right).
+\end{equation*}
+Now \eqref{eqn--sqrt-ep-2nd-moment-ratio-symm-single} follows
+since
+\begin{equation*}
+  \begin{split}
+  \sum_{i = 1}^{n} \left[ f^{2} \left( X_{i} \right) - f^{2} \left(W_{i} \right)
+  \right]^{2} =
+  & \, \sum_{i = 1}^{n} \left[ f^{4} \left( X_{i} \right) + f^{4}
+  \left( W_{i} \right) - 2 f^{2} \left( X_{i} \right) f^{2} \left( W_{i} \right)
+  \right] \\
+  \leq
+  & \, \sum_{i = 1}^{n} \left[ f^{4} \left( X_{i} \right) + f^{4} \left( W_{i}
+  \right) \right] = 2 n \mathbb{S} \left[ f^{4} \right] \leq 2 n \mathbb{S}
+  \left[ f^{2} \right], \text{ by } |f| \leq 1.
+  \end{split}
+\end{equation*}
+\qed
+
+\subsubsection{Proof of
+\texorpdfstring{\Cref{lem--sqrt-ep-2nd-moment-sup-symm-pbound}}{Lemma
+\ref{lem--sqrt-ep-2nd-moment-sup-symm-pbound}}}
+\label{sec--prf--lem--sqrt-ep-2nd-moment-sup-symm-pbound}
+
+Let \(M = N \left( \sqrt{2} t, \mathscr{L}_{2} (\mathbb{S}), \mathcal{F}
+\right)\) and select \(\mathcal{F}_{\ast} = \left\{ g_{1}, \dots, g_{M} \right\}
+\subseteq \mathcal{F}\) such that
+\begin{equation}
+  \text{defining } g_{\ast, f} := \argmin_{g \in \mathcal{F}_{\ast}}
+  \mathbb{S} \left[ (f - g)^{2} \right], \text{ we have } \sup_{f \in
+  \mathcal{F}} \sqrt{\mathbb{S} \left[ \left( f - g_{\ast, f} \right)^{2}
+  \right]} \leq \sqrt{2} t.
+  \label{eqn--sqrt-ep-cover}
+\end{equation}
+By the triangle inequality and \eqref{eqn--sqrt-ep-cover}, setting \(g =
+g_{\ast, f}\) for brevity of notation,
+\begin{equation*}
+  \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{P}^{\prime} \left[ g^{2} \right]} \right| \leq
+  \sqrt{\mathbb{P}^{\prime} \left[ (f - g)^{2} \right]} \leq \sqrt{2 \mathbb{S}
+  \left[ (f - g)^{2} \right]} \leq 2 t.
+\end{equation*}
+Since the same bound holds for \(\mathbb{Q}^{\prime}\),
+\begin{align*}
+  \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} \right| \leq
+  & \, \left| \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{P}^{\prime} \left[ g^{2} \right]} \right| +
+  \left| \sqrt{\mathbb{Q}^{\prime} \left[ f^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g^{2} \right]} \right| +
+  \left| \sqrt{\mathbb{P}^{\prime} \left[ g^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g^{2} \right]} \right| \\
+  \leq
+  & \, 4 t + \left| \sqrt{\mathbb{P}^{\prime} \left[ g^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g^{2} \right]} \right|.
+\end{align*}
+Therefore,
+\begin{align*}
+  \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+  \left[ f^{2} \right]} \right| > 6 t \right\} \leq
+  & \, \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ g_{\ast, f}^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g_{\ast, f}^{2} \right]} \right| > 2 t
+  \right\} \\
+  =
+  & \, \Pr_{\mathbf{T}}^{\ast} \left\{ \max_{j = 1, \dots, M} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ g_{j}^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g_{j}^{2} \right]} \right| > 2 t \right\} \\
+  \leq
+  & \, M \max_{j = 1, \dots, M} \Pr_{\mathbf{T}}^{\ast} \left\{ \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ g_{j}^{2} \right]} -
+  \sqrt{\mathbb{Q}^{\prime} \left[ g_{j}^{2} \right]} \right| > 2 t \right\}
+\end{align*}
+By \Cref{lem--sqrt-ep-2nd-moment-ratio-symm-single},
+\begin{equation*}
+  \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+  \left[ f^{2} \right]} \right| > 6 t \right\} \leq \min \left\{ 1, 2 N \left(
+  \sqrt{2} t, \mathscr{L}_{2} (\mathbb{S}), \mathcal{F} \right) \exp \left( -
+  2 n t^{2} \right) \right\}.
+\end{equation*}
+By \Cref{lem--L2-mixture-meas-cover},
+\begin{equation*}
+  \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+  \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+  \left[ f^{2} \right]} \right| > 6 t \right\} \leq \min \left\{ 1, 2 N \left(
+  t, \mathscr{L}_{2} (\mathbb{P}), \mathcal{F} \right) N \left( t,
+  \mathscr{L}_{2} (\mathbb{Q}), \mathcal{F} \right) \exp \left( - 2 n t^{2}
+  \right) \right\}.
+\end{equation*}
+By \Cref{lem--xy-bound-xpy},
+\begin{equation*}
+  \begin{split}
+    \Pr_{\mathbf{T}}^{\ast} \left\{ \sup_{f \in \mathcal{F}} \left|
+    \sqrt{\mathbb{P}^{\prime} \left[ f^{2} \right]} - \sqrt{\mathbb{Q}^{\prime}
+    \left[ f^{2} \right]} \right| > 6 t \right\} \leq
+    & \, \min \left\{ 1, 2 N \left( t, \mathscr{L}_{2} (\mathbb{P}), \mathcal{F}
+    \right) \exp \left( - n t^{2} \right) \right\} \\
+    & + \min \left\{ 1, N \left( t, \mathscr{L}_{2} (\mathbb{Q}), \mathcal{F}
+    \right) \exp \left( - n t^{2} \right) \right\}.
+  \end{split}
+\end{equation*}
+This proves \eqref{eqn--sqrt-ep-2nd-moment-sup-symm-pbound-conditional}, and
+``integrating out \(\mathbf{X}\) and \(\mathbf{W}\)'' by an application of
+\eqref{lem--vdvw23-lem-1-2-6} then proves
+\eqref{eqn--sqrt-ep-2nd-moment-sup-symm-pbound-1}.
+\qed
+
+\section{A crude use of \texorpdfstring{%
+\Cref{lem--ep-sym-unif-hoeffding-cond}}{Lemma
+\ref{lem--ep-sym-unif-hoeffding-cond}}}
+
+From \Cref{lem--ep-sym-unif-hoeffding-cond}, we can immediately derive a crude
+probability bound for \(\|\mathbb{P} - \overline{P} \|_{\mathcal{F}}\)
+when \(\mathcal{F}\) is uniformly bounded, e.g. if \(\sup_{f \in \mathcal{F}, x
+\in \mathcal{X}} |f (x)| \leq 1\).
+
+\begin{lemma}
+\label{lem--ep-sym-unif-hoeffding}
+Let \(\mathcal{F}\) satisfy \(\sup_{f \in \mathcal{F}, x \in \mathcal{X}} |f
+(x)| \leq 1\).
+For \(t > 0\),
+\begin{equation}
+  \Pr_{\mathbf{U}}^{\ast} \left\{ \left\| \mathbb{P}^{\circ}
+  \right\|_{\mathcal{F}} > t \right\} \leq \min \left\{ 1, 2 \exp \left( - n
+  t^{2} / 8 \right) N \left( t / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F}
+  \right) \right\}.
+  \label{eqn--ep-sym-unif-hoeffding-cond-crude}
+\end{equation}
+Therefore,
+\begin{equation}
+  \Pr^{\ast} \left\{ \left\| \mathbb{P}^{\circ} \right\|_{\mathcal{F}} > t
+  \right\} \leq \E \left[ \min \left\{ 1, 2 \exp \left( - n t^{2} / 8 \right) N
+  \left( t / 2, \mathscr{L}_{1} (\mathbb{P}), \mathcal{F} \right) \right\}
+  \right].
+  \label{eqn--ep-sym-unif-hoeffding}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{lem--ep-sym-unif-hoeffding}]
+Note that \eqref{eqn--ep-sym-unif-hoeffding} follows from
+\eqref{eqn--ep-sym-unif-hoeffding-cond-crude}.
+Furthermore, \(\kappa_{2}^{2} (\mathbb{P}, \mathcal{F}) \leq 1\) since functions
+in \(\mathcal{F}\) are uniformly bounded in magnitude by \(1\).
+Thus \eqref{eqn--ep-sym-unif-hoeffding-cond-crude} follows from
+\eqref{eqn--ep-sym-unif-hoeffding-cond} in
+\Cref{lem--ep-sym-unif-hoeffding-cond}.
+\end{proof}
+
+By directly using the uniform sup norm bound, we lose some generality.
+In particular, the bounds \eqref{eqn--ep-sym-unif-hoeffding-cond-crude} and
+\eqref{eqn--ep-sym-unif-hoeffding} are far from tight if \(\mathcal{F}\) has
+``small'' second moments, i.e. if \(\kappa_{2} (\mathbb{P}, \mathcal{F})\) and
+\(\kappa_{2} (\overline{P}, \mathcal{F})\) are small.
+In contrast, \Cref{thm--ep-prob-ineq-no-chain} accounts for cases of ``small''
+and ``large'' \(\kappa_{2} \left( \mathbb{P}, \mathcal{F} \right)\) and
+\(\kappa_{2} \left( \overline{P}, \mathcal{F} \right)\).
+
+\section{Implications for VC classes}
+
+We will use the following result on covering numbers for VC classes.
+
+\begin{lemma}
+\label{lem--covering-num-transition}
+Let \(\mathcal{F}\) be a class of functions with strictly positive envelope
+\(F\), and \(Q\) be a probability measure with \(Q F^{2} < \infty\).
+Define \(P (A) \equiv Q \left[ \mathbf{1}_{A} F^{2} \right] / Q \left[ F^{2}
+\right]\) and \(\mathcal{G} = \left\{ f / F : f \in \mathcal{F} \right\}\).
+Then:
+\begin{enumerate}[label=(\roman*)]
+  \item \(N \left( \delta \cdot \sqrt{Q F^{2}}, \mathscr{L}_{2} (Q), \mathcal{F}
+    \right) \leq N \left( \delta, \mathscr{L}_{2} (P), \mathcal{G} \right) \leq
+    N \left( \frac{1}{2} \delta^{2}, \mathscr{L}_{1} (P), \mathcal{G} \right)\);
+  \item if the class of graphs of functions in \(\mathcal{F}\) is w
+\end{enumerate}
+\end{lemma}
+
 
 %%% Local Variables:
 %%% mode: LaTeX
 %%% TeX-master: "../note-emp-proc-rates"
 %%% End:
-
-% LocalWords:  cdf ecdf
