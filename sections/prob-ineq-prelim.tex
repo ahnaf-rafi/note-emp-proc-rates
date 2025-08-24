@@ -236,8 +236,8 @@ There is a universal constant \(K \in (0, \infty)\) such that for any \(r \in
 \(0 < \varepsilon < 1\),
 \begin{equation}
   N \left( \varepsilon \|F\|_{Q, r}, \mathscr{L}_{r} (Q), \mathcal{F} \right)
-  \leq K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left( \frac{1}{\varepsilon}
-  \right)^{r V (\mathcal{F})}.
+  \leq K \cdot V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left(
+  \frac{1}{\varepsilon} \right)^{r V (\mathcal{F})}.
   \label{eqn--VC-coverin-number}
 \end{equation}
 \end{lemma}
@@ -247,19 +247,21 @@ There is a universal constant \(K \in (0, \infty)\) such that for any \(r \in
 Let \(\mathcal{F}\) be a VC class of functions with VC dimension \(V
 (\mathcal{F}) < \infty\) and \(x, t > 0\) satisfying
 \begin{equation*}
-  \sup_{f \in \mathcal{F}, x \in
-  \mathcal{X}} |f (x)| \leq 1, \quad x \geq \frac{1}{\sqrt{8 n}} \sup_{f \in
+  \sup_{f \in \mathcal{F}, y \in
+  \mathcal{X}} |f (y)| \leq 1, \quad x \geq \frac{1}{\sqrt{8 n}} \sup_{f \in
   \mathcal{F}} \sqrt{\frac{1}{n} \sum_{i = 1}^{n} \Var \left[ f \left( X_{i}
-\right) \right]} \quad \text{and} \quad
-  t \geq \kappa_{2} \left( \overline{P}, \mathcal{F} \right).
+  \right) \right]} \quad \text{and} \quad t \geq \kappa_{2} \left( \overline{P},
+  \mathcal{F} \right).
 \end{equation*}
-Then
+Then for a universal constant \(K \in (0, \infty)\) not depending on
+\(\mathcal{F}\), \(\left\{ P_{i} \right\}_{i = 1}^{n}\) or \(n\),
 \begin{equation}
   \begin{split}
     & \Pr^{\ast} \left\{ \left\| \mathbb{P} - \overline{P}
     \right\|_{\mathcal{F}} > 8 x \right\} \\
     \leq
-    & \, 16 K V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left[ \exp \left\{ -
+    & \, 16 K \cdot V (\mathcal{F}) (16 e)^{V (\mathcal{F})} \left[ \exp \left\{
+    -
     \frac{n x^{2}}{128 t^{2}} + V (\mathcal{F}) \log (1 / x) \right\} + \exp
     \left\{ - n t^{2} + 2 V (\mathcal{F}) \log (1 / t) \right\} \right].
   \end{split}
